@@ -1,0 +1,72 @@
+{
+    "usersStory": {
+        "user1": {
+            "name": "Nisma",
+            "profilePicture": "assets/images/1.png"
+        },
+        "user2": {
+            "name": "Nabiya",
+            "profilePicture": "assets/images/2.png"
+        },
+        "user3": {
+            "name": "Saad",
+            "profilePicture": "assets/images/3.png"
+        },
+        "user4": {
+            "name": "Rimsha",
+            "profilePicture": "assets/images/4.png"
+        },
+        "user5": {
+            "name": "Saqlain kamal",
+            "profilePicture": "assets/images/5.png"
+        },
+        "user6": {
+            "name": "Aiman",
+            "profilePicture": "assets/images/6.png"
+        },
+        "user7": {
+            "name": "Marukh",
+            "profilePicture": "assets/images/1.png"
+        }
+    },
+    "post": {
+        "Postuser1": {
+            "name": "Bamsel Cooper",
+            "postAsset": "https://blog.hootsuite.com/wp-content/uploads/2022/06/Instagram-Apps-Cover-Photo-556x556.png",
+            "about": "what is this? what is this. what is this?, what is this? what is this. what is this?",
+            "accopation": "photographer"
+        },
+        "Postuser2": {
+            "name": "Nisma",
+            "post": "https://blog.hootsuite.com/wp-content/uploads/2022/06/Instagram-Apps-Cover-Photo-556x556.png",
+            "about": "what is this? what is this. what is this?, what is this? what is this. what is this?",
+            "accopation": "Doctor"
+        },
+        "Postuser3": {
+            "name": "Rimsha",
+            "post": "https://blog.hootsuite.com/wp-content/uploads/2022/06/Instagram-Apps-Cover-Photo-556x556.png",
+            "about": "what is this? what is this. what is this?, what is this? what is this. what is this?",
+            "accopation": "Singer"
+        },
+        "Postuser4": {
+            "name": "Saqlain kamal",
+            "post": "https://blog.hootsuite.com/wp-content/uploads/2022/06/Instagram-Apps-Cover-Photo-556x556.png",
+            "about": "what is this? what is this. what is this?, what is this? what is this. what is this?",
+            "accopation": "Cricketer"
+        }
+    },
+    "messages": {
+        "sentByMe": {
+            "ListOfMyMessages": [
+                "Hi how are you? ",
+                "I am also ok ..",
+                "ok good night"
+            ],
+            "ListOfOthersMessages": [
+                "I am Good what about you? ",
+                "Thats Good....",
+                "Okey take care"
+            ]
+        }
+    }
+}
