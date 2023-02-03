@@ -56,17 +56,30 @@
         }
     },
     "messages": {
-        "sentByMe": {
-            "ListOfMyMessages": [
-                "Hi how are you? ",
-                "I am also ok ..",
-                "ok good night"
-            ],
-            "ListOfOthersMessages": [
-                "I am Good what about you? ",
-                "Thats Good....",
-                "Okey take care"
-            ]
+        "Message1": {
+            "text": "hihihihihi",
+            "time": "3.40",
+            "isSentByMe": false
+        },
+        "Message2": {
+            "text": "hihihihikjksjalshi",
+            "time": "3.40",
+            "isSentByMe": false
+        },
+        "Message3": {
+            "text": "hihjalshi",
+            "time": "3.40",
+            "isSentByMe": false
+        },
+        "Message4": {
+            "text": "hinisma khan lshi",
+            "time": "3.40",
+            "isSentByMe": false
+        },
+        "Message5": {
+            "text": "khan lshi",
+            "time": "3.40",
+            "isSentByMe": false
         }
     }
 }

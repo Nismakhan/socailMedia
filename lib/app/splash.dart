@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:social_media_app/app/controller/service_controller.dart';
 import 'package:provider/provider.dart';
