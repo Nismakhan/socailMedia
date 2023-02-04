@@ -9,7 +9,7 @@ class AuthDB {
   Future<User> signInWithEmailAndPassword(String email, String password) async {
     try {
       final credentials =
-          await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+          await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
 
       return credentials.user!;
     } on FirebaseAuthException catch (error, stacktrace) {
