@@ -4,6 +4,7 @@ import 'package:social_media_app/screens/chat_screen.dart';
 import 'package:social_media_app/screens/dashboard.dart';
 import 'package:social_media_app/screens/login.dart';
 import 'package:social_media_app/screens/messages_screen.dart';
+import 'package:social_media_app/screens/notifications_screen.dart';
 import 'package:social_media_app/screens/profile_screen.dart';
 import 'package:social_media_app/screens/sing_up.dart';
 import 'package:social_media_app/widgets/bottom_navigation_bar.dart';
@@ -17,6 +18,7 @@ class AppRouter {
   static const String profilePic = "/profile_screen";
 
   static const String messagesScreen = "/messages_screen";
+  static const String notifications = "/notifications_screen";
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -47,6 +49,10 @@ class AppRouter {
       case profilePic:
         return MaterialPageRoute(
           builder: ((context) => const ProfileScreen()),
+        );
+      case notifications:
+        return MaterialPageRoute(
+          builder: ((context) => const Notifications()),
         );
     }
     return null;

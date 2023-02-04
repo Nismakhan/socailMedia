@@ -38,7 +38,7 @@ class BottemNavigation extends StatelessWidget {
             ),
             onTap: () {
               Navigator.of(context).pushNamed(
-                AppRouter.profilePic,
+                AppRouter.notifications,
                 // arguments: Dummy.fromJson(dumy));
               );
             },

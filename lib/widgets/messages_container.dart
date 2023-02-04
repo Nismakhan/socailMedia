@@ -51,7 +51,7 @@ class ChatScreenBottemWidgets extends StatelessWidget {
       children: [
         Container(
           width: 60,
-          height: 55,
+          height: 45,
           decoration: BoxDecoration(
             color: clr,
             shape: BoxShape.circle,

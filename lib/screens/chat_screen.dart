@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:social_media_app/app/controller/service_controller.dart';
 
 import '../utils/media_query.dart';
 import '../widgets/messages_container.dart';
@@ -64,93 +66,126 @@ class Chat extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              const MessagesContainer(
-                clrForTet: Color.fromARGB(255, 114, 114, 114),
-                text: "YERTURDAY",
-                width: 150,
-                height: 40,
-                clrForBackground: Color.fromARGB(255, 211, 211, 211),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Column(
-                  children: const [
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: MessagesContainer(
-                        clrForTet: Colors.grey,
-                        text: "Hi rehan How are you?",
-                        width: 170,
-                        height: 60,
-                        clrForBackground: Color.fromARGB(255, 211, 211, 211),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: MessagesContainer(
-                        clrForTet: Colors.white,
-                        text: "I m good what about you?",
-                        width: 190,
-                        height: 60,
-                        clrForBackground: Colors.blue,
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: MessagesContainer(
-                        clrForTet: Colors.grey,
-                        text: "Do you want a burgur?",
-                        width: 180,
-                        height: 60,
-                        clrForBackground: Color.fromARGB(255, 211, 211, 211),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: MessagesContainer(
-                        clrForTet: Colors.white,
-                        text: "Would be awesome..",
-                        width: 180,
-                        height: 60,
-                        clrForBackground: Colors.blue,
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: MessagesContainer(
-                        clrForTet: Colors.grey,
-                        text: "Okey then wait for it",
-                        width: 170,
-                        height: 60,
-                        clrForBackground: Color.fromARGB(255, 211, 211, 211),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: MessagesContainer(
-                        clrForTet: Colors.white,
-                        text: "Thank you",
-                        width: 170,
-                        height: 60,
-                        clrForBackground: Colors.blue,
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: MessagesContainer(
-                        clrForTet: Colors.grey,
-                        text: "Mention NOt",
-                        width: 170,
-                        height: 60,
-                        clrForBackground: Color.fromARGB(255, 211, 211, 211),
-                      ),
-                    ),
-                  ],
+
+              const Text(
+                "YESTEDAY",
+                style: TextStyle(
+                  color: Color.fromARGB(255, 56, 55, 55),
+                  fontSize: 17,
                 ),
               ),
+              Column(
+                children: [
+                  Container(
+                    height: 400,
+                    child: ListView.builder(
+                        itemCount:
+                            context.read<ServiceController>().chats.length,
+                        itemBuilder: ((context, index) {
+                          final chatData =
+                              context.read<ServiceController>().chats[index];
+
+                          return Align(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 10.0),
+                                child: MessagesContainer(
+                                    clrForBackground:
+                                        Color.fromARGB(255, 209, 205, 205),
+                                    clrForTet:
+                                        Color.fromARGB(255, 126, 126, 126),
+                                    text: chatData.text,
+                                    width: screenWidth(context),
+                                    height: 60),
+                              ),
+                            ),
+                          );
+                        })),
+                  )
+                ],
+              ),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 15),
+              //   child: Column(
+              //     children: const [
+              //       SizedBox(
+              //         height: 30,
+              //       ),
+              //       Align(
+              //         alignment: Alignment.centerLeft,
+              //         child: MessagesContainer(
+              //           clrForTet: Colors.grey,
+              //           text: "Hi rehan How are you?",
+              //           width: 170,
+              //           height: 60,
+              //           clrForBackground: Color.fromARGB(255, 211, 211, 211),
+              //         ),
+              //       ),
+              //       Align(
+              //         alignment: Alignment.centerRight,
+              //         child: MessagesContainer(
+              //           clrForTet: Colors.white,
+              //           text: "I m good what about you?",
+              //           width: 190,
+              //           height: 60,
+              //           clrForBackground: Colors.blue,
+              //         ),
+              //       ),
+              //       Align(
+              //         alignment: Alignment.centerLeft,
+              //         child: MessagesContainer(
+              //           clrForTet: Colors.grey,
+              //           text: "Do you want a burgur?",
+              //           width: 180,
+              //           height: 60,
+              //           clrForBackground: Color.fromARGB(255, 211, 211, 211),
+              //         ),
+              //       ),
+              //       Align(
+              //         alignment: Alignment.centerRight,
+              //         child: MessagesContainer(
+              //           clrForTet: Colors.white,
+              //           text: "Would be awesome..",
+              //           width: 180,
+              //           height: 60,
+              //           clrForBackground: Colors.blue,
+              //         ),
+              //       ),
+              //       Align(
+              //         alignment: Alignment.centerLeft,
+              //         child: MessagesContainer(
+              //           clrForTet: Colors.grey,
+              //           text: "Okey then wait for it",
+              //           width: 170,
+              //           height: 60,
+              //           clrForBackground: Color.fromARGB(255, 211, 211, 211),
+              //         ),
+              //       ),
+              //       Align(
+              //         alignment: Alignment.centerRight,
+              //         child: MessagesContainer(
+              //           clrForTet: Colors.white,
+              //           text: "Thank you",
+              //           width: 170,
+              //           height: 60,
+              //           clrForBackground: Colors.blue,
+              //         ),
+              //       ),
+              //       Align(
+              //         alignment: Alignment.centerLeft,
+              //         child: MessagesContainer(
+              //           clrForTet: Colors.grey,
+              //           text: "Mention NOt",
+              //           width: 170,
+              //           height: 60,
+              //           clrForBackground: Color.fromARGB(255, 211, 211, 211),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
               Row(
                 children: [
                   Padding(
@@ -172,7 +207,7 @@ class Chat extends StatelessWidget {
                       clrForTet: Colors.black,
                       clrForBackground: Color.fromARGB(255, 185, 185, 185),
                       width: 260,
-                      height: 50,
+                      height: 40,
                     ),
                   )
                 ],

@@ -57,27 +57,27 @@
     },
     "messages": {
         "Message1": {
-            "text": "hihihihihi",
+            "text": "Hi! Rehan How Are You ?",
             "time": "3.40",
             "isSentByMe": false
         },
         "Message2": {
-            "text": "hihihihikjksjalshi",
+            "text": "I m good , what about you? ",
             "time": "3.40",
             "isSentByMe": false
         },
         "Message3": {
-            "text": "hihjalshi",
+            "text": "Do you want a burger",
             "time": "3.40",
             "isSentByMe": false
         },
         "Message4": {
-            "text": "hinisma khan lshi",
+            "text": "Would be awsome",
             "time": "3.40",
             "isSentByMe": false
         },
         "Message5": {
-            "text": "khan lshi",
+            "text": "Thats good.....",
             "time": "3.40",
             "isSentByMe": false
         }

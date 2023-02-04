@@ -94,6 +94,8 @@ class Messages extends StatelessWidget {
                 itemBuilder: ((context, index) {
                   final userData =
                       context.read<ServiceController>().userStory[index];
+                  final userChat =
+                      context.read<ServiceController>().chats[index];
                   return ListTile(
                     leading: Container(
                       // width: 60,
@@ -107,11 +109,13 @@ class Messages extends StatelessWidget {
                     title: Text(
                       userData.name,
                     ),
-                    subtitle: Text(
-                      userData.name,
-                    ),
-                    trailing: Text(
-                      userData.name,
+                    subtitle: Text(userChat.text),
+                    trailing: Column(
+                      children: [
+                        Text(
+                          userChat.time,
+                        ),
+                      ],
                     ),
                   );
                 }),
