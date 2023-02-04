@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:social_media_app/app/router.dart';
-
-import 'package:social_media_app/screens/chat_screen.dart';
+import 'package:social_media_app/app/router/router.dart';
 import 'package:social_media_app/utils/media_query.dart';
 import 'package:social_media_app/widgets/bottom_navigation_bar.dart';
-
 import 'package:social_media_app/widgets/icona_for_dashboard_on_top.dart';
 import 'package:social_media_app/widgets/listview_for_stories.dart';
 
@@ -169,8 +166,7 @@ class _DashboardState extends State<Dashboard> {
                           ),
                           child: OutlinedButton(
                             onPressed: () {
-                              Navigator.pushReplacementNamed(
-                                  context, AppRouter.chat);
+                              Navigator.pushReplacementNamed(context, AppRouter.chat);
                             },
                             child: const Text(
                               "Share",
@@ -230,9 +226,7 @@ class _DashboardState extends State<Dashboard> {
                         trailing: Container(
                             decoration: BoxDecoration(
                               border: Border.all(
-                                  color:
-                                      const Color.fromARGB(255, 250, 155, 148),
-                                  width: 3),
+                                  color: const Color.fromARGB(255, 250, 155, 148), width: 3),
                               shape: BoxShape.circle,
                             ),
                             child: const Icon(

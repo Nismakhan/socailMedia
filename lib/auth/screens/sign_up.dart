@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../app/router.dart';
-import '../utils/media_query.dart';
+
+import '../../app/router/router.dart';
+import '../../utils/media_query.dart';
 
 class SignUp extends StatelessWidget {
   const SignUp({super.key});

@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "104380883787",
+    "project_id": "test-db-app-acb3f",
+    "storage_bucket": "test-db-app-acb3f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:104380883787:android:ce1e7db999f30cf12c3ece",
+        "android_client_info": {
+          "package_name": "com.codvets.socialmedia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "104380883787-1jbs7gead3juphoijnm2s1gj5qbec6ib.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZjlgbxRkWy3s5vfN4Q5eFZ0OmI1E06zc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "104380883787-1jbs7gead3juphoijnm2s1gj5qbec6ib.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "104380883787-4sq7n933aenbtgjmdbhrhifdtnmn84sm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.codvets.test-db-app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:104380883787:android:8fb4dec3f654ee032c3ece",
+        "android_client_info": {
+          "package_name": "com.codvets.test_db_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "104380883787-1jbs7gead3juphoijnm2s1gj5qbec6ib.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZjlgbxRkWy3s5vfN4Q5eFZ0OmI1E06zc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "104380883787-1jbs7gead3juphoijnm2s1gj5qbec6ib.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "104380883787-4sq7n933aenbtgjmdbhrhifdtnmn84sm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.codvets.test-db-app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

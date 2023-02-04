@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:social_media_app/app/splash.dart';
+import 'package:social_media_app/auth/screens/login.dart';
+import 'package:social_media_app/auth/screens/sign_up.dart';
 import 'package:social_media_app/screens/chat_screen.dart';
 import 'package:social_media_app/screens/dashboard.dart';
-import 'package:social_media_app/screens/login.dart';
 import 'package:social_media_app/screens/messages_screen.dart';
 import 'package:social_media_app/screens/notifications_screen.dart';
 import 'package:social_media_app/screens/profile_screen.dart';
-import 'package:social_media_app/screens/sing_up.dart';
-import 'package:social_media_app/widgets/bottom_navigation_bar.dart';
 
 class AppRouter {
   static const String splash = "/";
@@ -19,6 +18,7 @@ class AppRouter {
 
   static const String messagesScreen = "/messages_screen";
   static const String notifications = "/notifications_screen";
+  static const String onboarding = "/onboarding";
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -28,7 +28,7 @@ class AppRouter {
         );
       case login:
         return MaterialPageRoute(
-          builder: ((context) => const Login()),
+          builder: ((context) => Login()),
         );
       case signUp:
         return MaterialPageRoute(

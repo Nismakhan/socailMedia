@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../app/router.dart';
+import '../app/router/router.dart';
 import '../utils/media_query.dart';
 
 class BottemNavigation extends StatelessWidget {
@@ -51,8 +51,7 @@ class BottemNavigation extends StatelessWidget {
               Icons.explore,
               size: 50,
             ),
-            onTap: () =>
-                Navigator.of(context).pushNamed(AppRouter.messagesScreen),
+            onTap: () => Navigator.of(context).pushNamed(AppRouter.messagesScreen),
           ),
           const SizedBox(
             width: 35,

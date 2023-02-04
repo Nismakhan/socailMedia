@@ -32,6 +32,30 @@
   <title>social_media_app</title>
   <link rel="manifest" href="manifest.json">
 
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyDK31FXe-Qam2HG1EUaKuZRab-GxQeR9rk",
+      authDomain: "test-db-app-acb3f.firebaseapp.com",
+      projectId: "test-db-app-acb3f",
+      storageBucket: "test-db-app-acb3f.appspot.com",
+      messagingSenderId: "104380883787",
+      appId: "1:104380883787:web:e9366f20f50fdd002c3ece",
+      measurementId: "G-08GMG96CWK"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+
   <script>
     // The value below is injected by flutter build, do not touch.
     var serviceWorkerVersion = null;
