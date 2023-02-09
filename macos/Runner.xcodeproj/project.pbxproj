@@ -47,7 +47,7 @@
 			files = (
 			);
 			name = "Bundle Framework";
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentUserPostsprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -76,7 +76,7 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentUserPostsprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
@@ -228,7 +228,7 @@
 				33CC10F32044A3C60003C045 /* Assets.xcassets in Resources */,
 				33CC10F62044A3C60003C045 /* MainMenu.xib in Resources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentUserPostsprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
@@ -246,7 +246,7 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentUserPostsprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "echo \"$PRODUCT_NAME.app\" > \"$PROJECT_DIR\"/Flutter/ephemeral/.app_filename && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/macos_assemble.sh embed\n";
 		};
@@ -266,7 +266,7 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentUserPostsprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"$FLUTTER_ROOT\"/packages/flutter_tools/bin/macos_assemble.sh && touch Flutter/ephemeral/tripwire";
 		};
@@ -281,7 +281,7 @@
 				33CC10F12044A3C60003C045 /* AppDelegate.swift in Sources */,
 				335BBD1B22A9A15E00E9071D /* GeneratedPluginRegistrant.swift in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentUserPostsprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 

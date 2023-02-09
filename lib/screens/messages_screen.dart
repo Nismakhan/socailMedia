@@ -90,7 +90,7 @@ class Messages extends StatelessWidget {
               width: screenWidth(context),
               color: Colors.white,
               child: ListView.builder(
-                itemCount: context.read<ServiceController>().userStory.length,
+                itemCount: context.read<ServiceController>().chats.length,
                 itemBuilder: ((context, index) {
                   final userData =
                       context.read<ServiceController>().userStory[index];
@@ -122,7 +122,10 @@ class Messages extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(child: BottemNavigation())
+          Expanded(
+              child: BottomNav(
+            number: 2,
+          ))
         ],
       )),
     );

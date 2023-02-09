@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:social_media_app/screens/dashboard.dart';
+import 'package:social_media_app/widgets/bottom_navigation_bar.dart';
 
 import '../app/controller/service_controller.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +30,7 @@ class Notifications extends StatelessWidget {
                 width: screenWidth(context),
                 color: Colors.white,
                 child: ListView.builder(
-                  itemCount: context.read<ServiceController>().userStory.length,
+                  itemCount: context.read<ServiceController>().chats.length,
                   itemBuilder: ((context, index) {
                     final userData =
                         context.read<ServiceController>().userStory[index];
@@ -61,6 +62,7 @@ class Notifications extends StatelessWidget {
                 ),
               ),
             ),
+            BottomNav(number: 1)
           ],
         ),
       ),
