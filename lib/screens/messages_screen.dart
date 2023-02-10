@@ -108,8 +108,16 @@ class Messages extends StatelessWidget {
                     ),
                     title: Text(
                       userData.name,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    subtitle: Text(userChat.text),
+                    subtitle: Text(
+                      userChat.text,
+                      style: const TextStyle(
+                        color: Colors.blue,
+                      ),
+                    ),
                     trailing: Column(
                       children: [
                         Text(
@@ -122,10 +130,7 @@ class Messages extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-              child: BottomNav(
-            number: 2,
-          ))
+          BottomNav(number: 2),
         ],
       )),
     );

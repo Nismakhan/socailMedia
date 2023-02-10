@@ -20,7 +20,7 @@ class _SplashState extends State<Splash> {
   Future<void> loadData() async {
     await context.read<ServiceController>().getData();
     Future.delayed(const Duration(seconds: 2), () {
-      Navigator.of(context).pushReplacementNamed(AppRouter.dashboard);
+      Navigator.of(context).pushReplacementNamed(AppRouter.login);
     });
   }
 

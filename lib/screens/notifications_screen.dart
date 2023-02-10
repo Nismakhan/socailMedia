@@ -1,11 +1,15 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:social_media_app/screens/dashboard.dart';
 import 'package:social_media_app/widgets/bottom_navigation_bar.dart';
+import 'package:social_media_app/widgets/list_of_persons_liked_post.dart';
 
 import '../app/controller/service_controller.dart';
 import 'package:provider/provider.dart';
 
 import '../utils/media_query.dart';
+import '../widgets/notificationscreen_widgets/notification_screen__widget.dart';
 
 class Notifications extends StatelessWidget {
   const Notifications({super.key});
@@ -22,45 +26,33 @@ class Notifications extends StatelessWidget {
           title: const Text("Notifications"),
         ),
         body: Column(
+          // mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(flex: 1, child: Text("Today")),
+            const Padding(
+              padding: EdgeInsets.all(15.0),
+              child: Text(
+                "Today",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+            ),
             Expanded(
-              flex: 6,
-              child: Container(
-                width: screenWidth(context),
-                color: Colors.white,
-                child: ListView.builder(
-                  itemCount: context.read<ServiceController>().chats.length,
-                  itemBuilder: ((context, index) {
-                    final userData =
-                        context.read<ServiceController>().userStory[index];
-                    final userChat =
-                        context.read<ServiceController>().chats[index];
-                    return ListTile(
-                      leading: Container(
-                        // width: 60,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: colors[index],
-                        ),
-                        child: Image.asset(userData.profilePicture),
-                      ),
-                      title: Text(
-                        userData.name,
-                      ),
-                      subtitle: Text(userChat.text),
-                      trailing: Column(
-                        children: [
-                          Text(
-                            userChat.time,
-                          ),
-                        ],
-                      ),
-                    );
-                  }),
+              flex: 3,
+              child: ListTileForNotificationScreen(),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(15.0),
+              child: Text(
+                "Yesturday",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
+            ),
+            const Expanded(
+              flex: 3,
+              child: ListTileForNotificationScreen(),
             ),
             BottomNav(number: 1)
           ],

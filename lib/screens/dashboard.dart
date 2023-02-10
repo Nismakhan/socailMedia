@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:social_media_app/app/controller/service_controller.dart';
+
 import 'package:social_media_app/app/router/router.dart';
 import 'package:social_media_app/utils/media_query.dart';
 import 'package:social_media_app/widgets/bottom_navigation_bar.dart';
 import 'package:social_media_app/widgets/icona_for_dashboard_on_top.dart';
-import 'package:social_media_app/widgets/list_of_persons_liked_post.dart';
+
 import 'package:social_media_app/widgets/listview_for_stories.dart';
 
 import '../widgets/DashboardWidgets/uploaded_posts.dart';

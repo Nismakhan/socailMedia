@@ -75,7 +75,7 @@ class Chat extends StatelessWidget {
               ),
               Column(
                 children: [
-                  Container(
+                  SizedBox(
                     height: 430,
                     child: ListView.builder(
                         itemCount:
