@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:social_media_app/app/router/router.dart';
+import 'package:social_media_app/auth/controllers/auth_controller.dart';
 import 'package:social_media_app/utils/media_query.dart';
 import 'package:social_media_app/widgets/bottom_navigation_bar.dart';
 import 'package:social_media_app/widgets/icona_for_dashboard_on_top.dart';
@@ -32,6 +34,11 @@ class _DashboardState extends State<Dashboard> {
         backgroundColor: const Color.fromARGB(255, 255, 243, 243),
         body: Column(
           children: [
+            ElevatedButton(
+                onPressed: () {
+                  context.read<AuthController>().signOut(context);
+                },
+                child: Text("Logout")),
             Expanded(
               flex: 2,
               child: Container(
@@ -166,7 +173,8 @@ class _DashboardState extends State<Dashboard> {
                           ),
                           child: OutlinedButton(
                             onPressed: () {
-                              Navigator.pushReplacementNamed(context, AppRouter.chat);
+                              Navigator.pushReplacementNamed(
+                                  context, AppRouter.chat);
                             },
                             child: const Text(
                               "Share",
@@ -226,7 +234,9 @@ class _DashboardState extends State<Dashboard> {
                         trailing: Container(
                             decoration: BoxDecoration(
                               border: Border.all(
-                                  color: const Color.fromARGB(255, 250, 155, 148), width: 3),
+                                  color:
+                                      const Color.fromARGB(255, 250, 155, 148),
+                                  width: 3),
                               shape: BoxShape.circle,
                             ),
                             child: const Icon(
