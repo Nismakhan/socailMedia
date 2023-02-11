@@ -1,13 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'package:social_media_app/app/router/router.dart';
+import 'package:social_media_app/common/my_bottom_nav.dart';
 import 'package:social_media_app/utils/media_query.dart';
+import 'package:social_media_app/widgets/DashboardWidgets/uploaded_posts.dart';
 import 'package:social_media_app/widgets/bottom_navigation_bar.dart';
 import 'package:social_media_app/widgets/icona_for_dashboard_on_top.dart';
 
 import 'package:social_media_app/widgets/listview_for_stories.dart';
-
-import '../widgets/DashboardWidgets/uploaded_posts.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -165,9 +167,9 @@ class _DashboardState extends State<Dashboard> {
               height: 10,
             ),
             const UploadedPosts(),
-            BottomNav(
-              number: 0,
-            ),
+            // BottomNav(
+            //   number: 0,
+            // ),
           ],
         ),
       ),

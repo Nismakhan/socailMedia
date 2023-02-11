@@ -17,6 +17,8 @@ class UploadedPosts extends StatelessWidget {
         child: SizedBox(
           width: screenWidth(context) * 0.89,
           child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              shrinkWrap: true,
               itemCount: context.read<ServiceController>().posts.length,
               itemBuilder: ((context, index) {
                 final userData = context.read<ServiceController>().posts[index];

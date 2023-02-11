@@ -1,14 +1,5 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:social_media_app/screens/dashboard.dart';
-import 'package:social_media_app/widgets/bottom_navigation_bar.dart';
-import 'package:social_media_app/widgets/list_of_persons_liked_post.dart';
-
-import '../app/controller/service_controller.dart';
-import 'package:provider/provider.dart';
-
-import '../utils/media_query.dart';
+import 'package:social_media_app/common/my_bottom_nav.dart';
 import '../widgets/notificationscreen_widgets/notification_screen__widget.dart';
 
 class Notifications extends StatelessWidget {
@@ -28,8 +19,8 @@ class Notifications extends StatelessWidget {
         body: Column(
           // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
+          children: const [
+            Padding(
               padding: EdgeInsets.all(15.0),
               child: Text(
                 "Today",
@@ -40,7 +31,7 @@ class Notifications extends StatelessWidget {
               flex: 3,
               child: ListTileForNotificationScreen(),
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.all(15.0),
               child: Text(
                 "Yesturday",
@@ -50,11 +41,11 @@ class Notifications extends StatelessWidget {
                 ),
               ),
             ),
-            const Expanded(
+            Expanded(
               flex: 3,
               child: ListTileForNotificationScreen(),
             ),
-            BottomNav(number: 1)
+            // BottomNav(number: 1)
           ],
         ),
       ),

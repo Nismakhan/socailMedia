@@ -16,7 +16,7 @@ class AuthController extends ChangeNotifier {
       if (currentUser != null) {
         appUser = await _db.getUserById(currentUser.uid);
         log(appUser!.toJson().toString());
-        Navigator.pushReplacementNamed(context, AppRouter.dashboard);
+        Navigator.pushReplacementNamed(context, AppRouter.homeScreen);
         // Get user data from database
         // route to home screen
       } else {
@@ -34,7 +34,7 @@ class AuthController extends ChangeNotifier {
   }) async {
     try {
       appUser = await _db.signInWithEmailAndPassword(email, password);
-      Navigator.pushReplacementNamed(context, AppRouter.dashboard);
+      Navigator.pushReplacementNamed(context, AppRouter.homeScreen);
     } catch (e) {
       print("Error in controller: $e");
     }
@@ -49,7 +49,7 @@ class AuthController extends ChangeNotifier {
       final User userFromCreds =
           await _db.signUpWithEmailAndPassword(user: user, password: password);
       appUser = user;
-      Navigator.pushReplacementNamed(context, AppRouter.dashboard);
+      Navigator.pushReplacementNamed(context, AppRouter.homeScreen);
       log("Now current User: ${appUser?.toJson().toString()}");
       notifyListeners();
     } catch (e) {
