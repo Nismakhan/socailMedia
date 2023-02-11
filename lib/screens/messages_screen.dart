@@ -124,6 +124,17 @@ class Messages extends StatelessWidget {
                         Text(
                           userChat.time,
                         ),
+                        Container(
+                          height: 20,
+                          width: 20,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.blue,
+                          ),
+                          child: const Center(
+                            child: Text("3+"),
+                          ),
+                        )
                       ],
                     ),
                   );
