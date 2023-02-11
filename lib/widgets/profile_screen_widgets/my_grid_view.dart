@@ -15,24 +15,21 @@ class MyGridView extends StatelessWidget {
       crossAxisCount: 2,
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.all(8),
           color: Colors.red,
         ),
         Container(
-          padding: const EdgeInsets.all(8),
           color: Colors.amber,
         ),
         Container(
-          padding: const EdgeInsets.all(8),
           color: Colors.teal[300],
         ),
         Container(
-          padding: const EdgeInsets.all(8),
           color: Colors.pink,
         ),
-        Container(padding: const EdgeInsets.all(8), color: Colors.black),
         Container(
-          padding: const EdgeInsets.all(8),
+          color: Colors.black,
+        ),
+        Container(
           color: Colors.cyan,
         ),
       ],
