@@ -1,0 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:social_media_app/models/user_post.dart';
+
+class PostRepo {
+  final _firestore = FirebaseFirestore.instance;
+  final _firebaseAuth = FirebaseAuth.instance;
+
+  Future<void> uploadPost({required UserPosts post}) async {
+    try {
+      await _firestore.collection("posts").doc(post.postId).set(post.toJson());
+    } on FirebaseException catch (e) {
+      rethrow;
+    }
+  }
+}
