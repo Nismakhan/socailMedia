@@ -4,13 +4,13 @@ class MessagesContainer extends StatelessWidget {
   const MessagesContainer({
     Key? key,
     required this.text,
-    this.clrForTet,
+    this.clrForText,
     this.clrForBackground,
     required this.width,
     required this.height,
   }) : super(key: key);
   final String text;
-  final Color? clrForTet;
+  final Color? clrForText;
   final Color? clrForBackground;
   final double width;
   final double height;
@@ -27,7 +27,7 @@ class MessagesContainer extends StatelessWidget {
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 15,
-            color: clrForTet,
+            color: clrForText,
           ),
         ),
       ),

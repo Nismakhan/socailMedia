@@ -66,7 +66,6 @@ class Chat extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-
               const Text(
                 "YESTEDAY",
                 style: TextStyle(
@@ -76,8 +75,8 @@ class Chat extends StatelessWidget {
               ),
               Column(
                 children: [
-                  Container(
-                    height: 400,
+                  SizedBox(
+                    height: 430,
                     child: ListView.builder(
                         itemCount:
                             context.read<ServiceController>().chats.length,
@@ -85,159 +84,88 @@ class Chat extends StatelessWidget {
                           final chatData =
                               context.read<ServiceController>().chats[index];
 
-                          return Align(
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 30),
                             child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 10.0),
-                                child: MessagesContainer(
-                                    clrForBackground:
-                                        Color.fromARGB(255, 209, 205, 205),
-                                    clrForTet:
-                                        Color.fromARGB(255, 126, 126, 126),
-                                    text: chatData.text,
-                                    width: screenWidth(context),
-                                    height: 60),
-                              ),
+                              padding: const EdgeInsets.only(top: 10.0),
+                              child: MessagesContainer(
+                                  clrForBackground:
+                                      const Color.fromARGB(255, 209, 205, 205),
+                                  clrForText:
+                                      const Color.fromARGB(255, 126, 126, 126),
+                                  text: chatData.text,
+                                  width: screenWidth(context) * 0.7,
+                                  height: 60),
                             ),
                           );
                         })),
                   )
                 ],
               ),
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 15),
-              //   child: Column(
-              //     children: const [
-              //       SizedBox(
-              //         height: 30,
-              //       ),
-              //       Align(
-              //         alignment: Alignment.centerLeft,
-              //         child: MessagesContainer(
-              //           clrForTet: Colors.grey,
-              //           text: "Hi rehan How are you?",
-              //           width: 170,
-              //           height: 60,
-              //           clrForBackground: Color.fromARGB(255, 211, 211, 211),
-              //         ),
-              //       ),
-              //       Align(
-              //         alignment: Alignment.centerRight,
-              //         child: MessagesContainer(
-              //           clrForTet: Colors.white,
-              //           text: "I m good what about you?",
-              //           width: 190,
-              //           height: 60,
-              //           clrForBackground: Colors.blue,
-              //         ),
-              //       ),
-              //       Align(
-              //         alignment: Alignment.centerLeft,
-              //         child: MessagesContainer(
-              //           clrForTet: Colors.grey,
-              //           text: "Do you want a burgur?",
-              //           width: 180,
-              //           height: 60,
-              //           clrForBackground: Color.fromARGB(255, 211, 211, 211),
-              //         ),
-              //       ),
-              //       Align(
-              //         alignment: Alignment.centerRight,
-              //         child: MessagesContainer(
-              //           clrForTet: Colors.white,
-              //           text: "Would be awesome..",
-              //           width: 180,
-              //           height: 60,
-              //           clrForBackground: Colors.blue,
-              //         ),
-              //       ),
-              //       Align(
-              //         alignment: Alignment.centerLeft,
-              //         child: MessagesContainer(
-              //           clrForTet: Colors.grey,
-              //           text: "Okey then wait for it",
-              //           width: 170,
-              //           height: 60,
-              //           clrForBackground: Color.fromARGB(255, 211, 211, 211),
-              //         ),
-              //       ),
-              //       Align(
-              //         alignment: Alignment.centerRight,
-              //         child: MessagesContainer(
-              //           clrForTet: Colors.white,
-              //           text: "Thank you",
-              //           width: 170,
-              //           height: 60,
-              //           clrForBackground: Colors.blue,
-              //         ),
-              //       ),
-              //       Align(
-              //         alignment: Alignment.centerLeft,
-              //         child: MessagesContainer(
-              //           clrForTet: Colors.grey,
-              //           text: "Mention NOt",
-              //           width: 170,
-              //           height: 60,
-              //           clrForBackground: Color.fromARGB(255, 211, 211, 211),
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 40, top: 20),
-                    child: Container(
+              const SizedBox(
+                height: 20,
+              ),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
                       width: 50,
                       height: 70,
                       decoration: const BoxDecoration(
-                        color: Colors.grey,
+                        color: Color.fromARGB(255, 226, 226, 226),
                         shape: BoxShape.circle,
                       ),
                       child: const Icon(Icons.add),
                     ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 10.0, left: 9),
-                    child: MessagesContainer(
-                      text: "Type Message Here",
-                      clrForTet: Colors.black,
-                      clrForBackground: Color.fromARGB(255, 185, 185, 185),
-                      width: 260,
-                      height: 40,
-                    ),
-                  )
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    ChatScreenBottemWidgets(
-                      icondata: Icons.image,
-                      clr: Colors.blue,
-                      text: "Images",
-                    ),
-                    ChatScreenBottemWidgets(
-                      icondata: Icons.location_on,
-                      clr: Colors.purple,
-                      text: "Location",
-                    ),
-                    ChatScreenBottemWidgets(
-                      icondata: Icons.file_copy,
-                      clr: Colors.orange,
-                      text: "File",
-                    ),
-                    ChatScreenBottemWidgets(
-                      icondata: Icons.contact_phone,
-                      clr: Colors.pink,
-                      text: "Contact",
+                    Container(
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 226, 226, 226),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      width: 300,
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          labelText: "Enter Your Message Here",
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                          ),
+                        ),
+                      ),
                     ),
                   ],
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      ChatScreenBottemWidgets(
+                        icondata: Icons.image,
+                        clr: Colors.blue,
+                        text: "Images",
+                      ),
+                      ChatScreenBottemWidgets(
+                        icondata: Icons.location_on,
+                        clr: Colors.purple,
+                        text: "Location",
+                      ),
+                      ChatScreenBottemWidgets(
+                        icondata: Icons.file_copy,
+                        clr: Colors.orange,
+                        text: "File",
+                      ),
+                      ChatScreenBottemWidgets(
+                        icondata: Icons.contact_phone,
+                        clr: Colors.pink,
+                        text: "Contact",
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

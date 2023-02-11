@@ -90,7 +90,7 @@ class Messages extends StatelessWidget {
               width: screenWidth(context),
               color: Colors.white,
               child: ListView.builder(
-                itemCount: context.read<ServiceController>().userStory.length,
+                itemCount: context.read<ServiceController>().chats.length,
                 itemBuilder: ((context, index) {
                   final userData =
                       context.read<ServiceController>().userStory[index];
@@ -108,8 +108,16 @@ class Messages extends StatelessWidget {
                     ),
                     title: Text(
                       userData.name,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    subtitle: Text(userChat.text),
+                    subtitle: Text(
+                      userChat.text,
+                      style: const TextStyle(
+                        color: Colors.blue,
+                      ),
+                    ),
                     trailing: Column(
                       children: [
                         Text(
@@ -122,7 +130,7 @@ class Messages extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(child: BottemNavigation())
+          BottomNav(number: 2),
         ],
       )),
     );

@@ -14,7 +14,9 @@ class SocialMedia extends StatelessWidget {
         ChangeNotifierProvider(create: (context) {
           return AuthController();
         }),
-        ChangeNotifierProvider(create: (context) => ServiceController()),
+        ChangeNotifierProvider(
+          create: (context) => ServiceController(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

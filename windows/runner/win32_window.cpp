@@ -159,7 +159,7 @@ Win32Window::MessageHandler(HWND hwnd,
       window_handle_ = nullptr;
       Destroy();
       if (quit_on_close_) {
-        PostQuitMessage(0);
+        UserPostsQuitMessage(0);
       }
       return 0;
 

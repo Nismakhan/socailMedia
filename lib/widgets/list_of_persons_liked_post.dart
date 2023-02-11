@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ListOfPersonsLikedThePost extends StatelessWidget {
-  const ListOfPersonsLikedThePost({
+class ListOfPersonsLikedTheUserPosts extends StatelessWidget {
+  const ListOfPersonsLikedTheUserPosts({
     Key? key,
     this.clr,
     required this.img,

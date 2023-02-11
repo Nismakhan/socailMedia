@@ -29,29 +29,33 @@
             "profilePicture": "assets/images/1.png"
         }
     },
-    "post": {
-        "Postuser1": {
+    "userPosts": {
+        "UserPostsuser1": {
             "name": "Bamsel Cooper",
-            "postAsset": "https://blog.hootsuite.com/wp-content/uploads/2022/06/Instagram-Apps-Cover-Photo-556x556.png",
-            "about": "what is this? what is this. what is this?, what is this? what is this. what is this?",
+            "profilePicture": "assets/images/1.png",
+            "userPostsAsset": "assets/images/pink circle.png",
+            "about": "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.",
             "accopation": "photographer"
         },
-        "Postuser2": {
+        "UserPostsuser2": {
             "name": "Nisma",
-            "post": "https://blog.hootsuite.com/wp-content/uploads/2022/06/Instagram-Apps-Cover-Photo-556x556.png",
-            "about": "what is this? what is this. what is this?, what is this? what is this. what is this?",
+            "profilePicture": "assets/images/1.png",
+            "userPostsAsset": "assets/images/pink circle.png",
+            "about": "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.",
             "accopation": "Doctor"
         },
-        "Postuser3": {
+        "UserPostsuser3": {
             "name": "Rimsha",
-            "post": "https://blog.hootsuite.com/wp-content/uploads/2022/06/Instagram-Apps-Cover-Photo-556x556.png",
-            "about": "what is this? what is this. what is this?, what is this? what is this. what is this?",
+            "profilePicture": "assets/images/1.png",
+            "userPostsAsset": "assets/images/pink circle.png",
+            "about": "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.",
             "accopation": "Singer"
         },
-        "Postuser4": {
+        "UserPostsuser4": {
             "name": "Saqlain kamal",
-            "post": "https://blog.hootsuite.com/wp-content/uploads/2022/06/Instagram-Apps-Cover-Photo-556x556.png",
-            "about": "what is this? what is this. what is this?, what is this? what is this. what is this?",
+            "profilePicture": "assets/images/1.png",
+            "userPostsAsset": "assets/images/pink circle.png",
+            "about": "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.",
             "accopation": "Cricketer"
         }
     },
@@ -77,6 +81,16 @@
             "isSentByMe": false
         },
         "Message5": {
+            "text": "Thats good.....",
+            "time": "3.40",
+            "isSentByMe": false
+        },
+        "Message7": {
+            "text": "Thats good.....",
+            "time": "3.40",
+            "isSentByMe": false
+        },
+        "Message8": {
             "text": "Thats good.....",
             "time": "3.40",
             "isSentByMe": false
