@@ -231,19 +231,6 @@ class Login extends StatelessWidget {
                                                           _passwordController
                                                               .text,
                                                     );
-
-                                                if (context
-                                                        .read<AuthController>()
-                                                        .appUser ==
-                                                    null) {
-                                                  Navigator.of(context)
-                                                      .pushReplacementNamed(
-                                                          AppRouter.onboarding);
-                                                } else {
-                                                  Navigator.of(context)
-                                                      .pushReplacementNamed(
-                                                          AppRouter.dashboard);
-                                                }
                                               }
                                             },
                                             child: const Text(

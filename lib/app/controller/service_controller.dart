@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:social_media_app/models/chat_class.dart';
 
-import 'package:social_media_app/models/post.dart';
+import 'package:social_media_app/models/user_post.dart';
 import 'package:social_media_app/models/user_story.dart';
 
 class ServiceController extends ChangeNotifier {

@@ -35,7 +35,9 @@ class AuthController extends ChangeNotifier {
     try {
       appUser = await _db.signInWithEmailAndPassword(email, password);
       Navigator.pushReplacementNamed(context, AppRouter.homeScreen);
-    } catch (e) {
+    } on FirebaseAuthException catch (e) {
+      log(e.code);
+      log(e.message!);
       print("Error in controller: $e");
     }
   }
