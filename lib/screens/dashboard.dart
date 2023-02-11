@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 
 import 'package:social_media_app/app/router/router.dart';
-import 'package:social_media_app/auth/controllers/auth_controller.dart';
 import 'package:social_media_app/utils/media_query.dart';
 import 'package:social_media_app/widgets/bottom_navigation_bar.dart';
 import 'package:social_media_app/widgets/icona_for_dashboard_on_top.dart';
@@ -34,7 +34,6 @@ class _DashboardState extends State<Dashboard> {
         backgroundColor: const Color.fromARGB(255, 255, 243, 243),
         body: Column(
           children: [
-          
             Expanded(
               flex: 3,
               child: Container(
@@ -95,7 +94,20 @@ class _DashboardState extends State<Dashboard> {
                     const Divider(
                       thickness: 1,
                     ),
-
+                    const SizedBox(
+                      height: 3,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: const [
+                              Icon(
+                                Icons.emoji_emotions,
+                                color: Color.fromARGB(255, 168, 153, 14),
+                              ),
                               SizedBox(
                                 width: 10,
                               ),
