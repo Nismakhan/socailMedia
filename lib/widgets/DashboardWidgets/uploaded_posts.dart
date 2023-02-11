@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../app/controller/service_controller.dart';
 import '../../utils/media_query.dart';
 import '../list_of_persons_liked_post.dart';
+import '../more_vert_outlined.dart';
 
 class UploadedPosts extends StatelessWidget {
   const UploadedPosts({
@@ -42,17 +43,7 @@ class UploadedPosts extends StatelessWidget {
                         ),
                       ),
                       subtitle: Text(userData.accopation),
-                      trailing: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: const Color.fromARGB(255, 250, 155, 148),
-                              width: 3),
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(
-                          Icons.more_vert_outlined,
-                        ),
-                      ),
+                      trailing: const MoreVertOutlined(),
                     ),
                     SizedBox(
                       child: Column(

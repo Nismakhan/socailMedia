@@ -9,6 +9,7 @@ import 'package:social_media_app/screens/dashboard.dart';
 import 'package:social_media_app/screens/explore.dart';
 import 'package:social_media_app/screens/messages_screen.dart';
 import 'package:social_media_app/screens/notifications_screen.dart';
+import 'package:social_media_app/screens/profile_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -27,7 +28,7 @@ class HomeScreen extends StatelessWidget {
             children: [
               const Dashboard(),
               const Notifications(),
-              const Explore(),
+              const ProfileScreen(),
               Messages(),
             ],
           );

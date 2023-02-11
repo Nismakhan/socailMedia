@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 import 'package:social_media_app/app/controller/service_controller.dart';
-import 'package:social_media_app/common/my_bottom_nav.dart';
+
 import '../utils/media_query.dart';
-import '../widgets/bottom_navigation_bar.dart';
+
 import '../widgets/listview_for_stories.dart';
 
 class Messages extends StatelessWidget {
