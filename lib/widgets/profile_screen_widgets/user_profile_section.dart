@@ -105,6 +105,9 @@ class UserProfileSection extends StatelessWidget {
             ),
           ],
         ),
+        const SizedBox(
+          height: 20,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: const [
