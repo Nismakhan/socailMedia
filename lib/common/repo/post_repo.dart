@@ -18,15 +18,4 @@ class PostRepo {
       rethrow;
     }
   }
-
-  Future<String> uploadImage({required String id, required XFile file}) async {
-    try {
-      TaskSnapshot taskSnapshot =
-          await _storage.ref("posts/$id/${file.name}").putFile(File(file.path));
-      final url = await taskSnapshot.ref.getDownloadURL();
-      return url;
-    } on FirebaseException catch (e) {
-      rethrow;
-    }
-  }
 }

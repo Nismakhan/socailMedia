@@ -50,6 +50,14 @@ class AuthDB {
     }
   }
 
+  Future<void> updateUser({required UserModel user}) async {
+    try {
+      await _firestore.collection("users").doc(user.uid).update(user.toJson());
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   User? isCurrentUser() {
     if (_firebaseAuth.currentUser != null) {
       return _firebaseAuth.currentUser;

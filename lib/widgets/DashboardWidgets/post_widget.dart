@@ -122,56 +122,7 @@ class _PostWidgetState extends State<PostWidget> {
                                 Icons.image,
                                 color: Colors.blue,
                               ),
-                              onPressed: () async {
-                                showBottomSheet(
-                                    context: context,
-                                    builder: (context) {
-                                      return SizedBox(
-                                        width: screenWidth(context),
-                                        height: screenHeight(context) * 0.15,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            const Text("Select Picker"),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                IconButton(
-                                                    onPressed: () {
-                                                      pickImage(
-                                                          imageSource:
-                                                              ImageSource
-                                                                  .camera);
-                                                    },
-                                                    icon: const Icon(
-                                                      Icons.camera,
-                                                      color: Colors.blue,
-                                                      size: 40,
-                                                    )),
-                                                const SizedBox(
-                                                  width: 20,
-                                                ),
-                                                IconButton(
-                                                    onPressed: () {
-                                                      pickImage(
-                                                          imageSource:
-                                                              ImageSource
-                                                                  .gallery);
-                                                    },
-                                                    icon: const Icon(
-                                                      Icons.browse_gallery,
-                                                      color: Colors.purple,
-                                                      size: 40,
-                                                    )),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    });
-                              },
+                              onPressed: () async {},
                               // Icons.image,
                             ),
                             const SizedBox(
@@ -271,13 +222,5 @@ class _PostWidgetState extends State<PostWidget> {
         ],
       ),
     );
-  }
-
-  void pickImage({required ImageSource imageSource}) async {
-    final ImagePicker _picker = ImagePicker();
-    final img = await _picker.pickImage(source: imageSource);
-    setState(() {
-      _pickedImage = img;
-    });
   }
 }

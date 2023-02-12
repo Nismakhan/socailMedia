@@ -2,9 +2,11 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:social_media_app/app/router/router.dart';
 import 'package:social_media_app/auth/db/database.dart';
 import 'package:social_media_app/auth/model/user_model.dart';
+import 'package:social_media_app/common/helper.dart';
 
 class AuthController extends ChangeNotifier {
   UserModel? appUser;
@@ -59,10 +61,49 @@ class AuthController extends ChangeNotifier {
     }
   }
 
-  void signOut(BuildContext context) async {
+  Future<void> signOut(BuildContext context) async {
     await _db.signOut();
     appUser = null;
     Navigator.pushNamedAndRemoveUntil(
         context, AppRouter.login, (route) => false);
+  }
+
+// Upload Image
+  XFile? pickedImage;
+
+  void changeImage({required XFile? image}) {
+    pickedImage = image;
+    uploadProfileImage();
+  }
+
+  void removeImage() {
+    pickedImage = null;
+    notifyListeners();
+  }
+
+  bool isUploading = false;
+
+  Future<void> uploadProfileImage() async {
+    try {
+      isUploading = true;
+      notifyListeners();
+      if (pickedImage != null) {
+        if (appUser!.profileUrl != null) {
+          await Helper.deleteImage(url: appUser!.profileUrl!);
+          appUser!.profileUrl = null;
+        }
+        final url = await Helper.uploadImage(
+            id: appUser!.uid,
+            file: pickedImage!,
+            ref: "users/${appUser!.uid}/${pickedImage!.name}");
+
+        appUser!.profileUrl = url;
+        await _db.updateUser(user: appUser!);
+        isUploading = false;
+        notifyListeners();
+      }
+    } catch (e) {
+      rethrow;
+    }
   }
 }
