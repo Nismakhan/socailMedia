@@ -66,7 +66,7 @@ class UploadedPosts extends StatelessWidget {
                                 ),
                                 // color: Colors.red,
                                 child: Image.asset(
-                                  userData.userPostsAsset,
+                                  userData.userPostsAsset ?? "",
                                   // height: 150,
                                   width: 150,
                                 ),
@@ -98,12 +98,14 @@ class UploadedPosts extends StatelessWidget {
                           const SizedBox(
                             height: 7,
                           ),
-                          Text(
-                            userData.about,
-                            overflow: TextOverflow.ellipsis,
-                            // textAlign: TextAlign.center,
-                            maxLines: 2,
-                          ),
+                          userData.about != null
+                              ? Text(
+                                  userData.about!,
+                                  overflow: TextOverflow.ellipsis,
+                                  // textAlign: TextAlign.center,
+                                  maxLines: 2,
+                                )
+                              : const SizedBox(),
                         ],
                       ),
                     ),

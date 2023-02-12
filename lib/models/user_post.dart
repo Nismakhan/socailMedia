@@ -4,8 +4,8 @@ class UserPosts {
     required this.uid,
     required this.name,
     this.profilePicture,
-    required this.userPostsAsset,
-    required this.about,
+    this.userPostsAsset,
+    this.about,
     required this.accopation,
   });
 
@@ -13,8 +13,8 @@ class UserPosts {
   String uid;
   String name;
   String? profilePicture;
-  String userPostsAsset;
-  String about;
+  String? userPostsAsset;
+  String? about;
   String accopation;
 
   factory UserPosts.fromJson(Map<String, dynamic> json) => UserPosts(
