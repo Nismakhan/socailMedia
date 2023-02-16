@@ -46,9 +46,13 @@ class _PostWidgetState extends State<PostWidget> {
               child: Column(
                 children: [
                   ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: const Color.fromARGB(255, 245, 148, 180),
-                      child: Image.asset("assets/images/1.png"),
+                    leading: Consumer<AuthController>(
+                      builder: (context, value, child) {
+                        return CircleAvatar(
+                            backgroundColor:
+                                const Color.fromARGB(255, 245, 148, 180),
+                            child: Image.network(value.appUser!.profileUrl!));
+                      },
                     ),
                     title: TextFormField(
                       controller: _postText,

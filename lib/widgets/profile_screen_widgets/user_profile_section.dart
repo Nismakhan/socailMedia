@@ -1,11 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media_app/auth/controllers/auth_controller.dart';
 import 'package:social_media_app/utils/image_dialgue.dart';
 
-import '../../utils/media_query.dart';
 import 'no_of_followers_posts_and_followings.dart';
 
 class UserProfileSection extends StatelessWidget {
@@ -19,6 +16,7 @@ class UserProfileSection extends StatelessWidget {
       children: [
         Consumer<AuthController>(builder: (context, provider, _) {
           return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               provider.isUploading
                   ? const Center(
@@ -34,12 +32,14 @@ class UserProfileSection extends StatelessWidget {
                               )
                             : const CircleAvatar(
                                 radius: 50,
+                                backgroundColor:
+                                    Color.fromARGB(255, 255, 163, 194),
                                 backgroundImage:
                                     AssetImage("assets/images/1.png"),
                               ),
                         Positioned(
                           right: 0,
-                          bottom: 0,
+                          bottom: 00,
                           child: CircleAvatar(
                             child: IconButton(
                               onPressed: () {

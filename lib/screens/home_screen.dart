@@ -1,15 +1,15 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media_app/app/controller/ui_controller.dart';
 import 'package:social_media_app/common/my_bottom_nav.dart';
 
 import 'package:social_media_app/screens/dashboard.dart';
-import 'package:social_media_app/screens/explore.dart';
+
 import 'package:social_media_app/screens/messages_screen.dart';
 import 'package:social_media_app/screens/notifications_screen.dart';
 import 'package:social_media_app/screens/profile_screen.dart';
+
+import 'indivisual_post_page.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -25,11 +25,11 @@ class HomeScreen extends StatelessWidget {
             // onPageChanged: (value) {
             //   provider.changeCurrentIndex(value);
             // },
-            children: [
-              const Dashboard(),
-              const Notifications(),
-              const ProfileScreen(),
-              Messages(),
+            children: const [
+              Dashboard(),
+              Notifications(),
+              ProfileScreen(),
+              IndivisualPostPage(),
             ],
           );
         }));
