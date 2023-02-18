@@ -73,9 +73,9 @@ class _DashboardState extends State<Dashboard> {
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Column(
-                  children: [
+                  children: const [
                     PostWidget(),
-                    const UploadedPosts(),
+                    UploadedPosts(),
                   ],
                 ),
               ),

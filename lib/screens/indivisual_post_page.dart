@@ -1,10 +1,7 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:social_media_app/auth/controllers/auth_controller.dart';
 
 import 'package:social_media_app/utils/media_query.dart';
+import 'package:social_media_app/widgets/indivisual_post_page_widgets.dart';
 
 class IndivisualPostPage extends StatelessWidget {
   const IndivisualPostPage({super.key});
@@ -30,69 +27,7 @@ class IndivisualPostPage extends StatelessWidget {
                 fit: BoxFit.fill,
               ),
             ),
-            Consumer<AuthController>(
-              builder: (context, value, child) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            width: screenWidth(context) * 0.2,
-                            height: 60,
-                            child: Stack(
-                              clipBehavior: Clip.none,
-                              children: const [
-                                Positioned(
-                                  top: -35,
-                                  // left: 40,
-                                  child: CircleAvatar(
-                                    radius: 30,
-                                    backgroundImage:
-                                        AssetImage('assets/images/1.png'),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Text(
-                            value.appUser!.name,
-                          ),
-                        ],
-                      ),
-                      Container(
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              "assets/images/Icon ionic-ios-heart.png",
-                              width: 30,
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Image.asset(
-                              "assets/images/chat.png",
-                              width: 30,
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Image.asset(
-                              "assets/images/send.png",
-                              width: 30,
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                );
-              },
-            ),
+            const AboutCurrentUser(),
             const SizedBox(
               height: 10,
             ),
@@ -136,30 +71,6 @@ class IndivisualPostPage extends StatelessWidget {
             )
           ],
         ),
-      ),
-    );
-  }
-}
-
-class MyCircleAvatars extends StatelessWidget {
-  const MyCircleAvatars({
-    required this.img,
-    Key? key,
-  }) : super(key: key);
-  final String img;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          border: Border.all(
-            width: 2,
-            color: Colors.red,
-          ),
-          shape: BoxShape.circle),
-      child: CircleAvatar(
-        radius: 40,
-        backgroundColor: const Color.fromARGB(255, 255, 174, 201),
-        child: Image.asset(img),
       ),
     );
   }

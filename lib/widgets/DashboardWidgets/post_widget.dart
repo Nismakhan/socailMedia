@@ -7,11 +7,13 @@ import 'package:provider/provider.dart';
 import 'package:social_media_app/auth/controllers/auth_controller.dart';
 import 'package:social_media_app/common/controllers/post_controller.dart';
 import 'package:social_media_app/models/user_post.dart';
+import 'package:social_media_app/screens/indivisual_post_page.dart';
 import 'package:social_media_app/utils/media_query.dart';
+import 'package:social_media_app/widgets/indivisual_post_page_widgets.dart';
 import 'package:uuid/uuid.dart';
 
 class PostWidget extends StatefulWidget {
-  PostWidget({
+  const PostWidget({
     Key? key,
   }) : super(key: key);
 
@@ -48,10 +50,16 @@ class _PostWidgetState extends State<PostWidget> {
                   ListTile(
                     leading: Consumer<AuthController>(
                       builder: (context, value, child) {
-                        return CircleAvatar(
-                            backgroundColor:
-                                const Color.fromARGB(255, 245, 148, 180),
-                            child: Image.network(value.appUser!.profileUrl!));
+                        return value.appUser!.profileUrl != null
+                            ? CircleAvatar(
+                                radius: 30,
+                                child: Image.network(
+                                  value.appUser!.profileUrl!,
+                                  width: 40,
+                                  height: 40,
+                                ),
+                              )
+                            : const MyCircleAvatars(img: "assets/images/1.png");
                       },
                     ),
                     title: TextFormField(

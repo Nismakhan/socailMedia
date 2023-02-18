@@ -313,7 +313,7 @@ class SignUp extends StatelessWidget {
                                 TextFormField(
                                   controller: _name,
                                   validator: (value) {
-                                    if (value == null || value!.isEmpty) {
+                                    if (value == null || value.isEmpty) {
                                       return "Name is Required.";
                                     }
                                     return null;
