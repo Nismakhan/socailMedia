@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 import 'package:social_media_app/app/controller/service_controller.dart';
+
 import '../utils/media_query.dart';
-import '../widgets/bottom_navigation_bar.dart';
+
 import '../widgets/listview_for_stories.dart';
 
 class Messages extends StatelessWidget {
@@ -90,7 +91,7 @@ class Messages extends StatelessWidget {
               width: screenWidth(context),
               color: Colors.white,
               child: ListView.builder(
-                itemCount: context.read<ServiceController>().userStory.length,
+                itemCount: context.read<ServiceController>().chats.length,
                 itemBuilder: ((context, index) {
                   final userData =
                       context.read<ServiceController>().userStory[index];
@@ -108,13 +109,32 @@ class Messages extends StatelessWidget {
                     ),
                     title: Text(
                       userData.name,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    subtitle: Text(userChat.text),
+                    subtitle: Text(
+                      userChat.text,
+                      style: const TextStyle(
+                        color: Colors.blue,
+                      ),
+                    ),
                     trailing: Column(
                       children: [
                         Text(
                           userChat.time,
                         ),
+                        Container(
+                          height: 20,
+                          width: 20,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.blue,
+                          ),
+                          child: const Center(
+                            child: Text("3+"),
+                          ),
+                        )
                       ],
                     ),
                   );
@@ -122,7 +142,7 @@ class Messages extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(child: BottemNavigation())
+          // BottomNav(number: 2),
         ],
       )),
     );

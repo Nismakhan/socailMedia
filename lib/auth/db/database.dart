@@ -6,12 +6,13 @@ class AuthDB {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<User> signInWithEmailAndPassword(String email, String password) async {
+  Future<UserModel?> signInWithEmailAndPassword(
+      String email, String password) async {
     try {
-      final credentials =
-          await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+      final credentials = await _firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
 
-      return credentials.user!;
+      return await getUserById(credentials.user!.uid);
     } on FirebaseAuthException catch (error, stacktrace) {
       print("An error occured: $error");
       rethrow;
@@ -28,5 +29,43 @@ class AuthDB {
     } on FirebaseException catch (e) {
       rethrow;
     }
+  }
+
+  Future<User> signUpWithEmailAndPassword(
+      {required UserModel user, required String password}) async {
+    try {
+      final credentials = await _firebaseAuth.createUserWithEmailAndPassword(
+          email: user.email, password: password);
+
+      user.uid = credentials.user!.uid;
+      await _firestore
+          .collection("users")
+          .doc(credentials.user!.uid)
+          .set(user.toJson());
+
+      return credentials.user!;
+    } on FirebaseAuthException catch (error, stacktrace) {
+      print("An error occured: $error");
+      rethrow;
+    }
+  }
+
+  Future<void> updateUser({required UserModel user}) async {
+    try {
+      await _firestore.collection("users").doc(user.uid).update(user.toJson());
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  User? isCurrentUser() {
+    if (_firebaseAuth.currentUser != null) {
+      return _firebaseAuth.currentUser;
+    }
+    return null;
+  }
+
+  Future<void> signOut() async {
+    await _firebaseAuth.signOut();
   }
 }

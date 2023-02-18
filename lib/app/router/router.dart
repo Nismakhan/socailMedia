@@ -4,7 +4,9 @@ import 'package:social_media_app/auth/screens/login.dart';
 import 'package:social_media_app/auth/screens/sign_up.dart';
 import 'package:social_media_app/screens/chat_screen.dart';
 import 'package:social_media_app/screens/dashboard.dart';
+import 'package:social_media_app/screens/home_screen.dart';
 import 'package:social_media_app/screens/messages_screen.dart';
+import 'package:social_media_app/screens/news_feed.dart';
 import 'package:social_media_app/screens/notifications_screen.dart';
 import 'package:social_media_app/screens/profile_screen.dart';
 
@@ -19,6 +21,9 @@ class AppRouter {
   static const String messagesScreen = "/messages_screen";
   static const String notifications = "/notifications_screen";
   static const String onboarding = "/onboarding";
+  static const String newsFeed = "/news_feed";
+
+  static const String homeScreen = "/homeScreen";
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -32,7 +37,7 @@ class AppRouter {
         );
       case signUp:
         return MaterialPageRoute(
-          builder: ((context) => const SignUp()),
+          builder: ((context) => SignUp()),
         );
       case dashboard:
         return MaterialPageRoute(
@@ -53,6 +58,14 @@ class AppRouter {
       case notifications:
         return MaterialPageRoute(
           builder: ((context) => const Notifications()),
+        );
+      case newsFeed:
+        return MaterialPageRoute(
+          builder: ((context) => const NewsFeed()),
+        );
+      case homeScreen:
+        return MaterialPageRoute(
+          builder: ((context) => const HomeScreen()),
         );
     }
     return null;

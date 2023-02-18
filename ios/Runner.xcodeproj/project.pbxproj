@@ -26,7 +26,7 @@
 			files = (
 			);
 			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentUserPostsprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -58,7 +58,7 @@
 			files = (
 				2B5C4E1598B0DCC5B35F49BE /* Pods_Runner.framework in Frameworks */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentUserPostsprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
@@ -197,7 +197,7 @@
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentUserPostsprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
@@ -212,7 +212,7 @@
 			name = "Thin Binary";
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentUserPostsprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" embed_and_thin";
 		};
@@ -265,7 +265,7 @@
 			name = "Run Script";
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentUserPostsprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build";
 		};
@@ -279,7 +279,7 @@
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentUserPostsprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 

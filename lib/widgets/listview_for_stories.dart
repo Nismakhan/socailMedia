@@ -10,7 +10,8 @@ class ListviewForStories extends StatelessWidget {
   final List<Color> colors;
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return SizedBox(
+      height: 70,
       child: ListView.builder(
         itemCount: context.read<ServiceController>().userStory.length,
         scrollDirection: Axis.horizontal,
