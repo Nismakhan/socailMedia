@@ -18,4 +18,20 @@ class PostRepo {
       rethrow;
     }
   }
+
+  Future<List<UserPosts>> getCurrentUserPosts({required String uid}) async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> querySnapShot = await _firestore
+          .collection("posts")
+          .where("uid", isEqualTo: uid)
+          .get();
+
+      List<UserPosts> posts =
+          querySnapShot.docs.map((e) => UserPosts.fromJson(e.data())).toList();
+
+      return posts;
+    } on FirebaseException {
+      rethrow;
+    }
+  }
 }

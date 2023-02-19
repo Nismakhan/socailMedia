@@ -1,9 +1,11 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media_app/auth/controllers/auth_controller.dart';
 import 'package:social_media_app/auth/model/user_model.dart';
+import 'package:social_media_app/common/controllers/post_controller.dart';
 
 import '../../app/router/router.dart';
 import '../../utils/media_query.dart';
@@ -376,6 +378,12 @@ class SignUp extends StatelessWidget {
                                                     password:
                                                         _passwordController
                                                             .text);
+
+                                            context
+                                                .read<PostController>()
+                                                .getCurrentUserPosts(
+                                                    uid: FirebaseAuth.instance
+                                                        .currentUser!.uid);
                                             // if (context
                                             //         .read<AuthController>()
                                             //         .appUser ==

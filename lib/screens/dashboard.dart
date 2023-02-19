@@ -6,8 +6,9 @@ import 'package:social_media_app/common/controllers/post_controller.dart';
 
 import 'package:social_media_app/models/user_post.dart';
 import 'package:social_media_app/utils/media_query.dart';
+import 'package:social_media_app/widgets/DashboardWidgets/post_stream.dart';
 import 'package:social_media_app/widgets/DashboardWidgets/post_widget.dart';
-import 'package:social_media_app/widgets/DashboardWidgets/uploaded_posts.dart';
+import 'package:social_media_app/widgets/DashboardWidgets/single_post_widget.dart';
 
 import 'package:social_media_app/widgets/icona_for_dashboard_on_top.dart';
 
@@ -70,14 +71,15 @@ class _DashboardState extends State<Dashboard> {
               ),
             ),
             Expanded(
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: Column(
-                  children: const [
-                    PostWidget(),
-                    UploadedPosts(),
-                  ],
-                ),
+              child: Column(
+                children: const [
+                  PostWidget(),
+                  Expanded(
+                    // fit: FlexFit.loose,
+                    child: PostStream(),
+                  ),
+                  // SinglePostWidget(post: post),
+                ],
               ),
             ),
           ],

@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class UserPosts {
   UserPosts({
     required this.postId,
@@ -7,6 +9,7 @@ class UserPosts {
     this.userPostsAsset,
     this.about,
     required this.accopation,
+    required this.dateAdded,
   });
 
   String postId;
@@ -16,6 +19,7 @@ class UserPosts {
   String? userPostsAsset;
   String? about;
   String accopation;
+  Timestamp dateAdded;
 
   factory UserPosts.fromJson(Map<String, dynamic> json) => UserPosts(
         postId: json["postId"] ?? "",
@@ -25,6 +29,7 @@ class UserPosts {
         userPostsAsset: json["userPostsAsset"],
         about: json["about"],
         accopation: json["accopation"],
+        dateAdded: json["dateAdded"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -35,5 +40,6 @@ class UserPosts {
         "userPostsAsset": userPostsAsset,
         "about": about,
         "accopation": accopation,
+        "dateAdded": dateAdded,
       };
 }

@@ -1,83 +1,80 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:social_media_app/auth/controllers/auth_controller.dart';
+
+import 'package:social_media_app/models/user_post.dart';
 import 'package:social_media_app/utils/media_query.dart';
 
 class AboutCurrentUser extends StatelessWidget {
   const AboutCurrentUser({
+    required this.post,
     Key? key,
   }) : super(key: key);
-
+  final UserPosts post;
   @override
   Widget build(BuildContext context) {
-    return Consumer<AuthController>(
-      builder: (context, value, child) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 10,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
             children: [
-              Row(
-                children: [
-                  SizedBox(
-                    width: screenWidth(context) * 0.16,
-                    height: 60,
-                    child: Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        Positioned(
-                          top: -35,
-                          // left: 40,
-                          child: value.appUser!.profileUrl != null
-                              ? CircleAvatar(
-                                  radius: 40,
-                                  backgroundImage:
-                                      NetworkImage(value.appUser!.profileUrl!),
-                                )
-                              : CircleAvatar(
-                                  radius: 30,
-                                  child: Image.asset("assets/images/1.png"),
-                                ),
-                        ),
-                      ],
+              SizedBox(
+                width: screenWidth(context) * 0.16,
+                height: 60,
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Positioned(
+                      top: -35,
+                      // left: 40,
+                      child: post.profilePicture != null
+                          ? CircleAvatar(
+                              radius: 40,
+                              backgroundImage:
+                                  NetworkImage(post.profilePicture!),
+                            )
+                          : CircleAvatar(
+                              radius: 30,
+                              child: Image.asset("assets/images/1.png"),
+                            ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    value.appUser!.name,
-                  ),
-                ],
+                  ],
+                ),
               ),
-              Row(
-                children: [
-                  Image.asset(
-                    "assets/images/Icon ionic-ios-heart.png",
-                    width: 30,
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Image.asset(
-                    "assets/images/chat.png",
-                    width: 30,
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Image.asset(
-                    "assets/images/send.png",
-                    width: 30,
-                  ),
-                ],
-              )
+              const SizedBox(
+                width: 8,
+              ),
+              Text(
+                post.name,
+              ),
             ],
           ),
-        );
-      },
+          Row(
+            children: [
+              Image.asset(
+                "assets/images/Icon ionic-ios-heart.png",
+                width: 30,
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Image.asset(
+                "assets/images/chat.png",
+                width: 30,
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Image.asset(
+                "assets/images/send.png",
+                width: 30,
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }

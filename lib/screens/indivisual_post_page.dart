@@ -1,44 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:social_media_app/models/user_post.dart';
 
 import 'package:social_media_app/utils/media_query.dart';
 import 'package:social_media_app/widgets/indivisual_post_page_widgets.dart';
 
 class IndivisualPostPage extends StatelessWidget {
-  const IndivisualPostPage({super.key});
+  const IndivisualPostPage({required this.post, super.key});
 
+  final UserPosts post;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.orange,
+        ),
         body: Column(
           children: [
             Container(
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: Colors.pink,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(20),
                   bottomRight: Radius.circular(20),
                 ),
+                image: post.userPostsAsset != null
+                    ? DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(
+                          post.userPostsAsset!,
+                        ),
+                      )
+                    : const DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage(
+                          "assets/images/clip path.png",
+                        ),
+                      ),
               ),
               width: screenWidth(context),
               height: screenHeight(context) * 0.5,
-              child: Image.asset(
-                "assets/images/clip path.jpg",
-                fit: BoxFit.fill,
-              ),
             ),
-            const AboutCurrentUser(),
+            AboutCurrentUser(
+              post: post,
+            ),
             const SizedBox(
               height: 10,
             ),
-            SizedBox(
-              width: screenWidth(context) * 0.9,
-              child: const Text(
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,",
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
+            if (post.about != null)
+              SizedBox(
+                width: screenWidth(context) * 0.9,
+                child: Text(
+                  post.about!,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                ),
               ),
-            ),
             const SizedBox(
               height: 20,
             ),
@@ -74,4 +91,9 @@ class IndivisualPostPage extends StatelessWidget {
       ),
     );
   }
+}
+
+class IndivisualPageArgs {
+  UserPosts post;
+  IndivisualPageArgs({required this.post});
 }

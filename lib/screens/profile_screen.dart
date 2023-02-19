@@ -1,13 +1,27 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:social_media_app/common/controllers/post_controller.dart';
+import 'package:social_media_app/utils/const.dart';
 import 'package:social_media_app/utils/media_query.dart';
 import 'package:social_media_app/widgets/more_vert_outlined.dart';
 
-import '../widgets/profile_screen_widgets/my_grid_view.dart';
+import '../widgets/profile_screen_widgets/posts_grid.dart';
 import '../widgets/profile_screen_widgets/photos_vedios_and_tagged_section.dart';
 import '../widgets/profile_screen_widgets/user_profile_section.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,8 +82,28 @@ class ProfileScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            const Expanded(
-              child: MyGridView(),
+            const Divider(
+              height: 2,
+            ),
+            Expanded(
+              child: Consumer<PostController>(builder: (context, provider, _) {
+                switch (provider.state) {
+                  case LoadingState.idle:
+                    return const SizedBox();
+                  case LoadingState.processing:
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  case LoadingState.error:
+                    return const Center(
+                      child: Text("Error"),
+                    );
+                  case LoadingState.loaded:
+                    return PostsGrid(
+                      posts: provider.currentUserPosts,
+                    );
+                }
+              }),
             ),
           ],
         ),

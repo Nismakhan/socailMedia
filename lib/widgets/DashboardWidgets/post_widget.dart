@@ -1,13 +1,14 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media_app/auth/controllers/auth_controller.dart';
 import 'package:social_media_app/common/controllers/post_controller.dart';
 import 'package:social_media_app/models/user_post.dart';
-import 'package:social_media_app/screens/indivisual_post_page.dart';
+import 'package:social_media_app/utils/image_dialgue.dart';
 import 'package:social_media_app/utils/media_query.dart';
 import 'package:social_media_app/widgets/indivisual_post_page_widgets.dart';
 import 'package:uuid/uuid.dart';
@@ -53,10 +54,8 @@ class _PostWidgetState extends State<PostWidget> {
                         return value.appUser!.profileUrl != null
                             ? CircleAvatar(
                                 radius: 30,
-                                child: Image.network(
+                                backgroundImage: NetworkImage(
                                   value.appUser!.profileUrl!,
-                                  width: 40,
-                                  height: 40,
                                 ),
                               )
                             : const MyCircleAvatars(img: "assets/images/1.png");
@@ -134,7 +133,13 @@ class _PostWidgetState extends State<PostWidget> {
                                 Icons.image,
                                 color: Colors.blue,
                               ),
-                              onPressed: () async {},
+                              onPressed: () async {
+                                imageDialogue(context, onSelect: (image) {
+                                  setState(() {
+                                    _pickedImage = image;
+                                  });
+                                });
+                              },
                               // Icons.image,
                             ),
                             const SizedBox(
@@ -185,7 +190,10 @@ class _PostWidgetState extends State<PostWidget> {
                                             postId: const Uuid().v1(),
                                             name: currentUser.name,
                                             about: _postText.text,
+                                            profilePicture:
+                                                currentUser.profileUrl,
                                             accopation: currentUser.designation,
+                                            dateAdded: Timestamp.now(),
                                           );
                                           await context
                                               .read<PostController>()

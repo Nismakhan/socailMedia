@@ -12,17 +12,19 @@ class AuthController extends ChangeNotifier {
   UserModel? appUser;
   final AuthDB _db = AuthDB();
 
-  Future<void> checkCurrentUser(BuildContext context) async {
+  Future<User?> checkCurrentUser(BuildContext context) async {
     try {
       final currentUser = _db.isCurrentUser();
       if (currentUser != null) {
         appUser = await _db.getUserById(currentUser.uid);
         log(appUser!.toJson().toString());
         Navigator.pushReplacementNamed(context, AppRouter.homeScreen);
+        return currentUser;
         // Get user data from database
         // route to home screen
       } else {
         Navigator.pushReplacementNamed(context, AppRouter.login);
+        return null;
       }
     } catch (e) {
       rethrow;

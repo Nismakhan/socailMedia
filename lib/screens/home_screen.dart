@@ -29,7 +29,8 @@ class HomeScreen extends StatelessWidget {
               Dashboard(),
               Notifications(),
               ProfileScreen(),
-              IndivisualPostPage(),
+              ProfileScreen(),
+              // IndivisualPostPage(),
             ],
           );
         }));
