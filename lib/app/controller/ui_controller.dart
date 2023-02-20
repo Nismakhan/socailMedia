@@ -6,10 +6,10 @@ class UiController with ChangeNotifier {
 
   void changeCurrentIndex(int index) {
     currentIndex = index;
-    pageCon.animateToPage(
+    pageCon.jumpToPage(
       currentIndex,
-      duration: const Duration(milliseconds: 200),
-      curve: Curves.easeIn,
+      // duration: const Duration(milliseconds: 200),
+      // curve: Curves.easeIn,
     );
     notifyListeners();
   }

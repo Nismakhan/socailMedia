@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:social_media_app/common/helper.dart';
@@ -15,15 +16,20 @@ class PostController with ChangeNotifier {
 
   List<UserPosts> currentUserPosts = List.empty(growable: true);
 
-  Future<void> getCurrentUserPosts({
+  Future<List<UserPosts>> getCurrentUserPosts({
     required String uid,
   }) async {
     try {
-      state = LoadingState.processing;
-      currentUserPosts = await _repo.getCurrentUserPosts(uid: uid);
-      state = LoadingState.loaded;
-      notifyListeners();
-      log(currentUserPosts.toString());
+      if (uid == FirebaseAuth.instance.currentUser!.uid) {
+        state = LoadingState.processing;
+        currentUserPosts = await _repo.getCurrentUserPosts(uid: uid);
+        state = LoadingState.loaded;
+        notifyListeners();
+        log(currentUserPosts.toString());
+        return currentUserPosts;
+      } else {
+        return await _repo.getCurrentUserPosts(uid: uid);
+      }
     } catch (e) {
       state = LoadingState.error;
       notifyListeners();

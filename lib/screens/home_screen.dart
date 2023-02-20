@@ -27,8 +27,8 @@ class HomeScreen extends StatelessWidget {
             // },
             children: const [
               Dashboard(),
-              Notifications(),
               ProfileScreen(),
+              Notifications(),
               ProfileScreen(),
               // IndivisualPostPage(),
             ],

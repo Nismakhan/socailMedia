@@ -9,6 +9,7 @@ import 'package:social_media_app/screens/indivisual_post_page.dart';
 import 'package:social_media_app/screens/messages_screen.dart';
 import 'package:social_media_app/screens/news_feed.dart';
 import 'package:social_media_app/screens/notifications_screen.dart';
+import 'package:social_media_app/screens/other_user_profile_screen.dart';
 import 'package:social_media_app/screens/profile_screen.dart';
 
 class AppRouter {
@@ -17,7 +18,8 @@ class AppRouter {
   static const String signUp = "/sign_up";
   static const String dashboard = "/dashboard";
   static const String chat = "/chat";
-  static const String profilePic = "/profile_screen";
+  static const String profileScreen = "/profile_screen";
+  static const String otherUserprofileScreen = "/otherUserprofileScreen";
 
   static const String messagesScreen = "/messages_screen";
   static const String notifications = "/notifications_screen";
@@ -60,9 +62,17 @@ class AppRouter {
           builder: ((context) => Messages()),
           settings: settings,
         );
-      case profilePic:
+      case profileScreen:
         return MaterialPageRoute(
           builder: ((context) => const ProfileScreen()),
+          settings: settings,
+        );
+      case otherUserprofileScreen:
+        final args = settings.arguments as OtherUserProfileArgs;
+        return MaterialPageRoute(
+          builder: ((context) => OtherUserProfileScreen(
+                args: args,
+              )),
           settings: settings,
         );
       case notifications:

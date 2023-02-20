@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media_app/auth/controllers/auth_controller.dart';
+import 'package:social_media_app/auth/model/user_model.dart';
 import 'package:social_media_app/utils/image_dialgue.dart';
 
 import 'no_of_followers_posts_and_followings.dart';
 
 class UserProfileSection extends StatelessWidget {
   const UserProfileSection({
+    required this.user,
     Key? key,
   }) : super(key: key);
-
+  final UserModel user;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -18,44 +20,55 @@ class UserProfileSection extends StatelessWidget {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              provider.isUploading
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : Stack(
-                      children: [
-                        provider.appUser!.profileUrl != null
-                            ? CircleAvatar(
-                                radius: 50,
-                                backgroundImage:
-                                    NetworkImage(provider.appUser!.profileUrl!),
-                              )
-                            : const CircleAvatar(
-                                radius: 50,
-                                backgroundColor:
-                                    Color.fromARGB(255, 255, 163, 194),
-                                backgroundImage:
-                                    AssetImage("assets/images/1.png"),
-                              ),
-                        Positioned(
-                          right: 0,
-                          bottom: 00,
-                          child: CircleAvatar(
-                            child: IconButton(
-                              onPressed: () {
-                                imageDialogue(
-                                  context,
-                                  onSelect: (file) {
-                                    provider.changeImage(image: file);
+              user.uid == provider.appUser!.uid
+                  ? provider.isUploading
+                      ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : Stack(
+                          children: [
+                            provider.appUser!.profileUrl != null
+                                ? CircleAvatar(
+                                    radius: 50,
+                                    backgroundImage: NetworkImage(
+                                        provider.appUser!.profileUrl!),
+                                  )
+                                : const CircleAvatar(
+                                    radius: 50,
+                                    backgroundColor:
+                                        Color.fromARGB(255, 255, 163, 194),
+                                    backgroundImage:
+                                        AssetImage("assets/images/1.png"),
+                                  ),
+                            Positioned(
+                              right: 0,
+                              bottom: 00,
+                              child: CircleAvatar(
+                                child: IconButton(
+                                  onPressed: () {
+                                    imageDialogue(
+                                      context,
+                                      onSelect: (file) {
+                                        provider.changeImage(image: file);
+                                      },
+                                    );
                                   },
-                                );
-                              },
-                              icon: const Icon(Icons.camera),
+                                  icon: const Icon(Icons.camera),
+                                ),
+                              ),
                             ),
-                          ),
+                          ],
+                        )
+                  : user.profileUrl != null
+                      ? CircleAvatar(
+                          radius: 50,
+                          backgroundImage: NetworkImage(user.profileUrl!),
+                        )
+                      : const CircleAvatar(
+                          radius: 50,
+                          backgroundColor: Color.fromARGB(255, 255, 163, 194),
+                          backgroundImage: AssetImage("assets/images/1.png"),
                         ),
-                      ],
-                    ),
               const SizedBox(
                 width: 20,
               ),
@@ -63,7 +76,7 @@ class UserProfileSection extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    provider.appUser!.name,
+                    user.name,
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -73,7 +86,7 @@ class UserProfileSection extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    provider.appUser!.designation,
+                    user.designation,
                     style: const TextStyle(
                       fontSize: 17,
                       color: Color.fromARGB(255, 68, 68, 68),
@@ -82,56 +95,58 @@ class UserProfileSection extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  Row(
-                    children: [
-                      Container(
-                        width: 120,
-                        height: 35,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                          gradient: LinearGradient(
-                            colors: [
-                              Color.fromARGB(255, 228, 211, 62),
-                              Colors.deepOrange,
-                            ],
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                          ),
-                        ),
-                        child: OutlinedButton(
-                          onPressed: () {},
-                          child: const Text(
-                            "Follow Me",
-                            style: TextStyle(
-                              color: Colors.white,
+                  user.uid != provider.appUser!.uid
+                      ? Row(
+                          children: [
+                            Container(
+                              width: 120,
+                              height: 35,
+                              decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Color.fromARGB(255, 228, 211, 62),
+                                    Colors.deepOrange,
+                                  ],
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                ),
+                              ),
+                              child: OutlinedButton(
+                                onPressed: () {},
+                                child: const Text(
+                                  "Follow Me",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Container(
-                        width: 30,
-                        height: 30,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.blue,
-                        ),
-                        // height: 30,
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Container(
+                              width: 30,
+                              height: 30,
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.blue,
+                              ),
+                              // height: 30,
 
-                        child: const Center(
-                          child: Icon(
-                            Icons.message,
-                            size: 17,
-                            color: Colors.white,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
+                              child: const Center(
+                                child: Icon(
+                                  Icons.message,
+                                  size: 17,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            )
+                          ],
+                        )
+                      : const SizedBox(),
                 ],
               ),
             ],

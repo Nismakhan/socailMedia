@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:social_media_app/app/router/router.dart';
 import 'package:social_media_app/models/user_post.dart';
 import 'package:social_media_app/screens/indivisual_post_page.dart';
+import 'package:social_media_app/screens/other_user_profile_screen.dart';
 import '../list_of_persons_liked_post.dart';
 import '../more_vert_outlined.dart';
 
@@ -23,35 +24,46 @@ class SinglePostWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ListTile(
-              leading: post.profilePicture != null
-                  ? CircleAvatar(
-                      backgroundColor: Colors.orange,
-                      backgroundImage: NetworkImage(
-                        post.profilePicture!,
-                      ),
-                      // child: Image.network(post.profilePicture!),
-                    )
-                  : const CircleAvatar(
-                      backgroundColor: Colors.orange,
-                      // child:  Image.asset(post.profilePicture ?? ""),
+            Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () {
+                  Navigator.of(context).pushNamed(
+                    AppRouter.otherUserprofileScreen,
+                    arguments: OtherUserProfileArgs(uid: post.uid),
+                  );
+                },
+                child: ListTile(
+                  leading: post.profilePicture != null
+                      ? CircleAvatar(
+                          backgroundColor: Colors.orange,
+                          backgroundImage: NetworkImage(
+                            post.profilePicture!,
+                          ),
+                          // child: Image.network(post.profilePicture!),
+                        )
+                      : const CircleAvatar(
+                          backgroundColor: Colors.orange,
+                          // child:  Image.asset(post.profilePicture ?? ""),
+                        ),
+                  title: Text(
+                    post.name,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
                     ),
-              title: Text(
-                post.name,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
+                  ),
+                  subtitle: Text(post.accopation),
+                  trailing: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          AppRouter.indivisualPostPage,
+                          arguments: IndivisualPageArgs(post: post),
+                        );
+                      },
+                      child: const MoreVertOutlined()),
                 ),
               ),
-              subtitle: Text(post.accopation),
-              trailing: GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      AppRouter.indivisualPostPage,
-                      arguments: IndivisualPageArgs(post: post),
-                    );
-                  },
-                  child: const MoreVertOutlined()),
             ),
             SizedBox(
               child: Column(
@@ -60,15 +72,24 @@ class SinglePostWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       post.userPostsAsset != null
-                          ? Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              // color: Colors.red,
-                              child: Image.network(
-                                post.userPostsAsset!,
-                                // height: 150,
-                                width: 150,
+                          ? GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  AppRouter.indivisualPostPage,
+                                  arguments: IndivisualPageArgs(post: post),
+                                );
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                // color: Colors.red,
+                                child: Image.network(
+                                  post.userPostsAsset!,
+                                  // height: 150,
+                                  width: 150,
+                                ),
                               ),
                             )
                           : const SizedBox(),

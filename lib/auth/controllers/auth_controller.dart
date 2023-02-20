@@ -108,4 +108,12 @@ class AuthController extends ChangeNotifier {
       rethrow;
     }
   }
+
+  Future<UserModel> getUserById({required String uid}) async {
+    try {
+      return await _db.getUserById(uid);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

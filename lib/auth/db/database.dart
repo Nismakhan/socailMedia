@@ -19,14 +19,16 @@ class AuthDB {
     }
   }
 
-  Future<UserModel?> getUserById(String userId) async {
+  Future<UserModel> getUserById(String userId) async {
     try {
       final snapshot = await _firestore.collection("users").doc(userId).get();
       if (snapshot.exists) {
         final data = snapshot.data();
         return UserModel.fromJson(data!);
+      } else {
+        throw "No User found";
       }
-    } on FirebaseException catch (e) {
+    } on FirebaseException {
       rethrow;
     }
   }

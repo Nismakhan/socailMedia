@@ -23,7 +23,7 @@ class PostStream extends StatelessWidget {
         final data = snapshot.data?.docs
             .map((e) => UserPosts.fromJson(e.data()))
             .toList();
-        log(data!.length.toString());
+
         switch (snapshot.connectionState) {
           case ConnectionState.none:
             return const SizedBox();
@@ -36,7 +36,7 @@ class PostStream extends StatelessWidget {
           case ConnectionState.done:
             return ListView.builder(
               shrinkWrap: true,
-              itemCount: data.length,
+              itemCount: data!.length,
               itemBuilder: (context, index) {
                 return SinglePostWidget(post: data[index]);
               },

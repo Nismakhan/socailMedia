@@ -1,6 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:social_media_app/auth/controllers/auth_controller.dart';
 import 'package:social_media_app/common/controllers/post_controller.dart';
 import 'package:social_media_app/utils/const.dart';
 import 'package:social_media_app/utils/media_query.dart';
@@ -30,10 +30,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
         elevation: 0,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
-        leading: const Icon(
-          Icons.arrow_back,
-          size: 30,
-        ),
+        // leading: const Icon(
+        //   Icons.arrow_back,
+        //   size: 30,
+        // ),
         actions: const [
           Padding(
             padding: EdgeInsets.only(right: 15.0),
@@ -47,7 +47,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             SizedBox(
               width: screenWidth(context),
-              child: const UserProfileSection(),
+              child: UserProfileSection(
+                user: context.read<AuthController>().appUser!,
+              ),
             ),
             const SizedBox(
               height: 20,
