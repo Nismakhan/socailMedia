@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:social_media_app/app/router/router.dart';
 import 'package:social_media_app/auth/controllers/auth_controller.dart';
 import 'package:social_media_app/common/controllers/post_controller.dart';
 import 'package:social_media_app/models/comment_model.dart';
 import 'package:social_media_app/models/user_post.dart';
+import 'package:social_media_app/screens/other_user_profile_screen.dart';
 import 'package:social_media_app/widgets/indivisual_post_page_widgets.dart';
 import 'package:uuid/uuid.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -142,8 +145,22 @@ class CommentWidget extends StatelessWidget {
                 icon: const Icon(Icons.delete))
             : const SizedBox(),
         ListTile(
-          leading: MyCircleAvatars(
-            networkUrl: comment.profileUrl,
+          leading: GestureDetector(
+            onTap: () {
+              if (comment.uid == FirebaseAuth.instance.currentUser!.uid) {
+                Navigator.of(context).pushNamed(
+                  AppRouter.profileScreen,
+                );
+              } else {
+                Navigator.of(context).pushNamed(
+                  AppRouter.otherUserprofileScreen,
+                  arguments: OtherUserProfileArgs(uid: comment.uid),
+                );
+              }
+            },
+            child: MyCircleAvatars(
+              networkUrl: comment.profileUrl,
+            ),
           ),
           title: Text(
             comment.userName,
