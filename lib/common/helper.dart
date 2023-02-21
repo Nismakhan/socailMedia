@@ -2,8 +2,18 @@ import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 class Helper {
+  static String getFormattedDateTime(DateTime date) {
+    return "${date.day}-${date.month}-${date.year} ${getFormattedTime(date)}";
+  }
+
+  static String getFormattedTime(DateTime date) {
+    return DateFormat('hh:mm a').format(date);
+  }
+
+  // image upload
   static Future<String> uploadImage(
       {required String id, required XFile file, required String ref}) async {
     try {

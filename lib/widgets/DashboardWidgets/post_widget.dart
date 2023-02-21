@@ -201,9 +201,9 @@ class _PostWidgetState extends State<PostWidget> {
                                                   post: postModel,
                                                   pickedImage: _pickedImage);
                                           _postText.clear();
-                                          WidgetsBinding.instance.focusManager
-                                              .primaryFocus
-                                              ?.unfocus();
+                                          // WidgetsBinding.instance.focusManager
+                                          //     .primaryFocus
+                                          //     ?.unfocus();
                                           setState(() {
                                             _pickedImage = null;
                                           });

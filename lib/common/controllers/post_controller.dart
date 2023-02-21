@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:social_media_app/common/helper.dart';
 import 'package:social_media_app/common/repo/post_repo.dart';
+import 'package:social_media_app/models/comment_model.dart';
 import 'package:social_media_app/models/user_post.dart';
 import 'package:social_media_app/utils/const.dart';
 
@@ -57,6 +58,24 @@ class PostController with ChangeNotifier {
     } catch (e) {
       isLoading = false;
       notifyListeners();
+      rethrow;
+    }
+  }
+
+  Future<void> addComment({required CommentModel commentModel}) async {
+    try {
+      await _repo.addComment(commentModel: commentModel);
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
+
+  Future<void> deleteComment({required CommentModel commentModel}) async {
+    try {
+      await _repo.delete(commentModel: commentModel);
+    } catch (e) {
+      log(e.toString());
       rethrow;
     }
   }

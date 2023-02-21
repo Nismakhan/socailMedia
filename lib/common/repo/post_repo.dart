@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:social_media_app/models/comment_model.dart';
 import 'package:social_media_app/models/user_post.dart';
 
 class PostRepo {
@@ -31,6 +32,32 @@ class PostRepo {
 
       return posts;
     } on FirebaseException {
+      rethrow;
+    }
+  }
+
+  Future<void> addComment({required CommentModel commentModel}) async {
+    try {
+      await _firestore
+          .collection("posts")
+          .doc(commentModel.postId)
+          .collection("comments")
+          .doc(commentModel.commentId)
+          .set(commentModel.toJson());
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> delete({required CommentModel commentModel}) async {
+    try {
+      await _firestore
+          .collection("posts")
+          .doc(commentModel.postId)
+          .collection("comments")
+          .doc(commentModel.commentId)
+          .delete();
+    } catch (e) {
       rethrow;
     }
   }

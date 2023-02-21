@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:social_media_app/common/helper.dart';
 
 import 'package:social_media_app/models/user_post.dart';
 import 'package:social_media_app/utils/media_query.dart';
@@ -44,10 +45,22 @@ class AboutCurrentUser extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                width: 8,
+                width: 25,
               ),
-              Text(
-                post.name,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    post.name,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(Helper.getFormattedDateTime(post.dateAdded.toDate())),
+                ],
               ),
             ],
           ),
@@ -81,10 +94,13 @@ class AboutCurrentUser extends StatelessWidget {
 
 class MyCircleAvatars extends StatelessWidget {
   const MyCircleAvatars({
-    required this.img,
+    this.img,
+    this.networkUrl,
     Key? key,
   }) : super(key: key);
-  final String img;
+  final String? img;
+  final String? networkUrl;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -94,11 +110,23 @@ class MyCircleAvatars extends StatelessWidget {
             color: Colors.red,
           ),
           shape: BoxShape.circle),
-      child: CircleAvatar(
-        radius: 40,
-        backgroundColor: const Color.fromARGB(255, 255, 174, 201),
-        child: Image.asset(img),
-      ),
+      child: img != null
+          ? CircleAvatar(
+              radius: 40,
+              backgroundColor: const Color.fromARGB(255, 255, 174, 201),
+              child: Image.asset(img!),
+            )
+          : networkUrl != null
+              ? CircleAvatar(
+                  radius: 40,
+                  backgroundColor: const Color.fromARGB(255, 255, 174, 201),
+                  backgroundImage: NetworkImage(networkUrl!),
+                  // child: Image.network(networkUrl!),
+                )
+              : const CircleAvatar(
+                  radius: 40,
+                  backgroundColor: Color.fromARGB(255, 255, 174, 201),
+                ),
     );
   }
 }
