@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:social_media_app/common/helper.dart';
 import 'package:social_media_app/common/repo/post_repo.dart';
 import 'package:social_media_app/models/comment_model.dart';
+import 'package:social_media_app/models/like_model.dart';
 import 'package:social_media_app/models/user_post.dart';
 import 'package:social_media_app/utils/const.dart';
 
@@ -76,6 +77,48 @@ class PostController with ChangeNotifier {
       await _repo.delete(commentModel: commentModel);
     } catch (e) {
       log(e.toString());
+      rethrow;
+    }
+  }
+
+  Future<void> addLike({required LikeModel likeModel}) async {
+    try {
+      await _repo.addLike(likeModel: likeModel);
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
+
+  Future<void> unLike({required String postId, required String likeId}) async {
+    try {
+      await _repo.unLike(postId: postId, likeId: likeId);
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
+
+  Future<int> getLikesCount({required String postId}) async {
+    try {
+      return await _repo.getLikesCount(postId: postId);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<int> getCommentCount({required String postId}) async {
+    try {
+      return await _repo.getCommentCount(postId: postId);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<LikeModel?> isPostLikeByMe({required String postId}) async {
+    try {
+      return await _repo.isPostLikeByMe(postId: postId);
+    } catch (e) {
       rethrow;
     }
   }

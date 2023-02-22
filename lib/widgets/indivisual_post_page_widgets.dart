@@ -1,8 +1,18 @@
+import 'dart:async';
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:social_media_app/auth/controllers/auth_controller.dart';
+import 'package:social_media_app/common/controllers/post_controller.dart';
 import 'package:social_media_app/common/helper.dart';
+import 'package:social_media_app/models/like_model.dart';
 
 import 'package:social_media_app/models/user_post.dart';
 import 'package:social_media_app/utils/media_query.dart';
+import 'package:uuid/uuid.dart';
 
 class AboutCurrentUser extends StatelessWidget {
   const AboutCurrentUser({
@@ -64,30 +74,120 @@ class AboutCurrentUser extends StatelessWidget {
               ),
             ],
           ),
-          Row(
-            children: [
-              Image.asset(
-                "assets/images/Icon ionic-ios-heart.png",
-                width: 30,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Image.asset(
-                "assets/images/chat.png",
-                width: 30,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Image.asset(
-                "assets/images/send.png",
-                width: 30,
-              ),
-            ],
-          )
+          PostLikeCommentWidget(
+            post: post,
+          ),
         ],
       ),
+    );
+  }
+}
+
+class PostLikeCommentWidget extends StatefulWidget {
+  const PostLikeCommentWidget({
+    required this.post,
+    Key? key,
+  }) : super(key: key);
+
+  final UserPosts post;
+
+  @override
+  State<PostLikeCommentWidget> createState() => _PostLikeCommentWidgetState();
+}
+
+class _PostLikeCommentWidgetState extends State<PostLikeCommentWidget> {
+  int likeCount = 0;
+  int commentCount = 0;
+
+  LikeModel? isLikedByMe;
+
+  @override
+  void initState() {
+    final controller = context.read<PostController>();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      isLikedByMe = await controller.isPostLikeByMe(postId: widget.post.postId);
+      likeCount = await controller.getLikesCount(postId: widget.post.postId);
+      commentCount =
+          await controller.getCommentCount(postId: widget.post.postId);
+      setState(() {});
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              splashRadius: 20,
+              onPressed: () async {
+                if (isLikedByMe != null) {
+                  await context.read<PostController>().unLike(
+                      postId: widget.post.postId, likeId: isLikedByMe!.likeId);
+                  setState(() {
+                    isLikedByMe = null;
+                  });
+                } else {
+                  final currentUser = context.read<AuthController>().appUser!;
+                  final LikeModel likeModel = LikeModel(
+                    likeId: const Uuid().v1(),
+                    uid: currentUser.uid,
+                    userName: currentUser.name,
+                    profileUrl: currentUser.profileUrl,
+                    dateAdded: Timestamp.now(),
+                    postId: widget.post.postId,
+                  );
+                  context.read<PostController>().addLike(likeModel: likeModel);
+                  setState(() {
+                    isLikedByMe = likeModel;
+                  });
+                }
+              },
+              icon: isLikedByMe == null
+                  ? const Icon(
+                      Icons.favorite_border,
+                      size: 30,
+                    )
+                  : const Icon(
+                      Icons.favorite,
+                      size: 30,
+                      color: Colors.red,
+                    ),
+            ),
+            Text(likeCount.toString()),
+          ],
+        ),
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              splashRadius: 20,
+              onPressed: () {},
+              icon: const Icon(
+                Icons.comment,
+                size: 30,
+              ),
+            ),
+            Text(commentCount.toString()),
+          ],
+        ),
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              splashRadius: 20,
+              onPressed: () {},
+              icon: const Icon(
+                Icons.share,
+                size: 30,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

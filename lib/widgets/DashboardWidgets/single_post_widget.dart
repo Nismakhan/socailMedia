@@ -6,12 +6,18 @@ import 'package:social_media_app/screens/other_user_profile_screen.dart';
 import '../list_of_persons_liked_post.dart';
 import '../more_vert_outlined.dart';
 
-class SinglePostWidget extends StatelessWidget {
+class SinglePostWidget extends StatefulWidget {
   const SinglePostWidget({
     required this.post,
     Key? key,
   }) : super(key: key);
   final UserPosts post;
+
+  @override
+  State<SinglePostWidget> createState() => _SinglePostWidgetState();
+}
+
+class _SinglePostWidgetState extends State<SinglePostWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -30,15 +36,15 @@ class SinglePostWidget extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context).pushNamed(
                     AppRouter.otherUserprofileScreen,
-                    arguments: OtherUserProfileArgs(uid: post.uid),
+                    arguments: OtherUserProfileArgs(uid: widget.post.uid),
                   );
                 },
                 child: ListTile(
-                  leading: post.profilePicture != null
+                  leading: widget.post.profilePicture != null
                       ? CircleAvatar(
                           backgroundColor: Colors.orange,
                           backgroundImage: NetworkImage(
-                            post.profilePicture!,
+                            widget.post.profilePicture!,
                           ),
                           // child: Image.network(post.profilePicture!),
                         )
@@ -47,18 +53,18 @@ class SinglePostWidget extends StatelessWidget {
                           // child:  Image.asset(post.profilePicture ?? ""),
                         ),
                   title: Text(
-                    post.name,
+                    widget.post.name,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  subtitle: Text(post.accopation),
+                  subtitle: Text(widget.post.accopation),
                   trailing: GestureDetector(
                       onTap: () {
                         Navigator.pushNamed(
                           context,
                           AppRouter.indivisualPostPage,
-                          arguments: IndivisualPageArgs(post: post),
+                          arguments: IndivisualPageArgs(post: widget.post),
                         );
                       },
                       child: const MoreVertOutlined()),
@@ -66,7 +72,7 @@ class SinglePostWidget extends StatelessWidget {
               ),
             ),
             SizedBox(
-              child: post.userPostsAsset != null
+              child: widget.post.userPostsAsset != null
                   ? Column(
                       children: [
                         Padding(
@@ -76,14 +82,14 @@ class SinglePostWidget extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              post.userPostsAsset != null
+                              widget.post.userPostsAsset != null
                                   ? GestureDetector(
                                       onTap: () {
                                         Navigator.pushNamed(
                                           context,
                                           AppRouter.indivisualPostPage,
-                                          arguments:
-                                              IndivisualPageArgs(post: post),
+                                          arguments: IndivisualPageArgs(
+                                              post: widget.post),
                                         );
                                       },
                                       child: Container(
@@ -93,7 +99,7 @@ class SinglePostWidget extends StatelessWidget {
                                         ),
                                         // color: Colors.red,
                                         child: Image.network(
-                                          post.userPostsAsset!,
+                                          widget.post.userPostsAsset!,
                                           // height: 150,
                                           width: 150,
                                         ),
@@ -128,7 +134,7 @@ class SinglePostWidget extends StatelessWidget {
                         const SizedBox(
                           height: 7,
                         ),
-                        post.about != null
+                        widget.post.about != null
                             ? Row(
                                 children: [
                                   Padding(
@@ -136,7 +142,7 @@ class SinglePostWidget extends StatelessWidget {
                                     child: SizedBox(
                                       width: 200,
                                       child: Text(
-                                        post.about!,
+                                        widget.post.about!,
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left,
                                         maxLines: 2,
@@ -157,26 +163,36 @@ class SinglePostWidget extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              post.about != null
-                                  ? Row(
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 20),
-                                          child: SizedBox(
-                                            width: 200,
-                                            child: Text(
-                                              post.about!,
-                                              style: const TextStyle(
-                                                fontSize: 20,
+                              widget.post.about != null
+                                  ? GestureDetector(
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                          context,
+                                          AppRouter.indivisualPostPage,
+                                          arguments: IndivisualPageArgs(
+                                              post: widget.post),
+                                        );
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 20),
+                                            child: SizedBox(
+                                              width: 200,
+                                              child: Text(
+                                                widget.post.about!,
+                                                style: const TextStyle(
+                                                  fontSize: 20,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                                textAlign: TextAlign.left,
+                                                maxLines: 2,
                                               ),
-                                              overflow: TextOverflow.ellipsis,
-                                              textAlign: TextAlign.left,
-                                              maxLines: 2,
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     )
                                   : const SizedBox(),
                               Column(
