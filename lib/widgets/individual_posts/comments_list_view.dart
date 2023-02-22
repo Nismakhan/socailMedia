@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media_app/app/router/router.dart';
@@ -15,7 +14,7 @@ import 'package:uuid/uuid.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class CommentsListView extends StatefulWidget {
-  CommentsListView({
+  const CommentsListView({
     required this.post,
     Key? key,
   }) : super(key: key);

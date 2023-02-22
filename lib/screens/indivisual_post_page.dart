@@ -36,7 +36,7 @@ class IndivisualPostPage extends StatelessWidget {
                       : const DecorationImage(
                           fit: BoxFit.cover,
                           image: AssetImage(
-                            "assets/images/clip path.png",
+                            "assets/images/clip path.jpg",
                           ),
                         ),
                 ),

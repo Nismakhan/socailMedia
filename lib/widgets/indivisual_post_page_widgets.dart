@@ -45,7 +45,7 @@ class AboutCurrentUser extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                width: 25,
+                width: 35,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

@@ -66,77 +66,146 @@ class SinglePostWidget extends StatelessWidget {
               ),
             ),
             SizedBox(
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      post.userPostsAsset != null
-                          ? GestureDetector(
-                              onTap: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  AppRouter.indivisualPostPage,
-                                  arguments: IndivisualPageArgs(post: post),
-                                );
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                // color: Colors.red,
-                                child: Image.network(
-                                  post.userPostsAsset!,
-                                  // height: 150,
-                                  width: 150,
-                                ),
+              child: post.userPostsAsset != null
+                  ? Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              post.userPostsAsset != null
+                                  ? GestureDetector(
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                          context,
+                                          AppRouter.indivisualPostPage,
+                                          arguments:
+                                              IndivisualPageArgs(post: post),
+                                        );
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        // color: Colors.red,
+                                        child: Image.network(
+                                          post.userPostsAsset!,
+                                          // height: 150,
+                                          width: 150,
+                                        ),
+                                      ),
+                                    )
+                                  : const SizedBox(),
+                              Column(
+                                children: [
+                                  Image.asset(
+                                    "assets/images/Icon ionic-ios-heart.png",
+                                    width: 30,
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Image.asset(
+                                    "assets/images/chat.png",
+                                    width: 30,
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Image.asset(
+                                    "assets/images/send.png",
+                                    width: 30,
+                                  ),
+                                ],
                               ),
-                            )
-                          : const SizedBox(),
-                      Column(
-                        children: [
-                          Image.asset(
-                            "assets/images/Icon ionic-ios-heart.png",
-                            width: 30,
+                            ],
                           ),
-                          const SizedBox(
-                            height: 10,
+                        ),
+                        const SizedBox(
+                          height: 7,
+                        ),
+                        post.about != null
+                            ? Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 20),
+                                    child: SizedBox(
+                                      width: 200,
+                                      child: Text(
+                                        post.about!,
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.left,
+                                        maxLines: 2,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : const SizedBox(),
+                      ],
+                    )
+                  : Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
                           ),
-                          Image.asset(
-                            "assets/images/chat.png",
-                            width: 30,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Image.asset(
-                            "assets/images/send.png",
-                            width: 30,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 7,
-                  ),
-                  post.about != null
-                      ? Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20),
-                              child: Text(
-                                post.about!,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                maxLines: 2,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              post.about != null
+                                  ? Row(
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 20),
+                                          child: SizedBox(
+                                            width: 200,
+                                            child: Text(
+                                              post.about!,
+                                              style: const TextStyle(
+                                                fontSize: 20,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                              textAlign: TextAlign.left,
+                                              maxLines: 2,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : const SizedBox(),
+                              Column(
+                                children: [
+                                  Image.asset(
+                                    "assets/images/Icon ionic-ios-heart.png",
+                                    width: 30,
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Image.asset(
+                                    "assets/images/chat.png",
+                                    width: 30,
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Image.asset(
+                                    "assets/images/send.png",
+                                    width: 30,
+                                  ),
+                                ],
                               ),
-                            ),
-                          ],
-                        )
-                      : const SizedBox(),
-                ],
-              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
             ),
             const SizedBox(
               height: 10,
