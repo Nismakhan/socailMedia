@@ -45,19 +45,45 @@ class PostRepo {
           .collection("comments")
           .doc(commentModel.commentId)
           .set(commentModel.toJson());
+
+      await _firestore.collection("posts").doc(commentModel.postId).update({
+        "commentsCount": FieldValue.increment(1),
+      });
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<void> addLike({required LikeModel likeModel}) async {
+  Future<void> addLike(
+      {required UserPosts post, required LikeModel likeModel}) async {
     try {
+      final listofLikes = post.lastLikes;
+
+      final isLikeBefore =
+          listofLikes.any((element) => element["uid"] == likeModel.uid);
+
+      if (!isLikeBefore) {
+        if (listofLikes.length > 2) {
+          listofLikes.removeAt(0);
+        }
+        listofLikes.add({
+          "uid": likeModel.uid,
+          "name": likeModel.userName,
+          "profileUrl": likeModel.profileUrl,
+        });
+      }
+
       await _firestore
           .collection("posts")
           .doc(likeModel.postId)
           .collection("likes")
           .doc(likeModel.likeId)
           .set(likeModel.toJson());
+
+      await _firestore.collection("posts").doc(likeModel.postId).update({
+        "likesCount": FieldValue.increment(1),
+        "lastLikes": listofLikes,
+      });
     } catch (e) {
       rethrow;
     }
@@ -71,6 +97,10 @@ class PostRepo {
           .collection("likes")
           .doc(likeId)
           .delete();
+
+      await _firestore.collection("posts").doc(postId).update({
+        "likesCount": FieldValue.increment(-1),
+      });
     } catch (e) {
       rethrow;
     }
@@ -84,6 +114,9 @@ class PostRepo {
           .collection("comments")
           .doc(commentModel.commentId)
           .delete();
+      await _firestore.collection("posts").doc(commentModel.postId).update({
+        "commentsCount": FieldValue.increment(-1),
+      });
     } catch (e) {
       rethrow;
     }

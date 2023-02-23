@@ -23,6 +23,7 @@ class PostStream extends StatelessWidget {
         final data = snapshot.data?.docs
             .map((e) => UserPosts.fromJson(e.data()))
             .toList();
+        log("Chamged Data ${data.toString()}");
 
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -32,8 +33,6 @@ class PostStream extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           case ConnectionState.active:
-          // return SinglePostWidget(post: UserPosts.fromJson(data!.first));
-          case ConnectionState.done:
             return ListView.builder(
               shrinkWrap: true,
               itemCount: data!.length,
@@ -41,6 +40,8 @@ class PostStream extends StatelessWidget {
                 return SinglePostWidget(post: data[index]);
               },
             );
+          case ConnectionState.done:
+            return const SizedBox();
         }
       },
     );

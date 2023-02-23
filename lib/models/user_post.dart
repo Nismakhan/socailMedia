@@ -8,7 +8,10 @@ class UserPosts {
     this.profilePicture,
     this.userPostsAsset,
     this.about,
+    required this.likesCount,
+    required this.commentsCount,
     required this.accopation,
+    required this.lastLikes,
     required this.dateAdded,
   });
 
@@ -18,8 +21,11 @@ class UserPosts {
   String? profilePicture;
   String? userPostsAsset;
   String? about;
+  int likesCount;
+  int commentsCount;
   String accopation;
   Timestamp dateAdded;
+  List<Map<String, dynamic>> lastLikes;
 
   factory UserPosts.fromJson(Map<String, dynamic> json) => UserPosts(
         postId: json["postId"] ?? "",
@@ -30,6 +36,14 @@ class UserPosts {
         about: json["about"],
         accopation: json["accopation"],
         dateAdded: json["dateAdded"],
+        likesCount: (json["likesCount"] == null) ? 0 : json["likesCount"],
+        commentsCount:
+            (json["commentsCount"] == null) ? 0 : json["commentsCount"],
+        lastLikes: (json["lastLikes"] == null)
+            ? []
+            : (json["lastLikes"] as List)
+                .map((e) => e as Map<String, dynamic>)
+                .toList(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -41,5 +55,8 @@ class UserPosts {
         "about": about,
         "accopation": accopation,
         "dateAdded": dateAdded,
+        "likesCount": likesCount,
+        "commentsCount": commentsCount,
+        "lastLikes": lastLikes
       };
 }

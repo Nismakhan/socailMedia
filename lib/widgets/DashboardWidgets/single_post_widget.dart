@@ -1,8 +1,18 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:social_media_app/app/router/router.dart';
+import 'package:social_media_app/auth/controllers/auth_controller.dart';
+import 'package:social_media_app/common/controllers/post_controller.dart';
+import 'package:social_media_app/models/like_model.dart';
 import 'package:social_media_app/models/user_post.dart';
 import 'package:social_media_app/screens/indivisual_post_page.dart';
 import 'package:social_media_app/screens/other_user_profile_screen.dart';
+import 'package:social_media_app/utils/media_query.dart';
+import 'package:social_media_app/widgets/individual_posts/comments_list_view.dart';
+import 'package:uuid/uuid.dart';
 import '../list_of_persons_liked_post.dart';
 import '../more_vert_outlined.dart';
 
@@ -106,27 +116,8 @@ class _SinglePostWidgetState extends State<SinglePostWidget> {
                                       ),
                                     )
                                   : const SizedBox(),
-                              Column(
-                                children: [
-                                  Image.asset(
-                                    "assets/images/Icon ionic-ios-heart.png",
-                                    width: 30,
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Image.asset(
-                                    "assets/images/chat.png",
-                                    width: 30,
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Image.asset(
-                                    "assets/images/send.png",
-                                    width: 30,
-                                  ),
-                                ],
+                              LikesCommentsWidgetVerticle(
+                                post: widget.post,
                               ),
                             ],
                           ),
@@ -195,27 +186,8 @@ class _SinglePostWidgetState extends State<SinglePostWidget> {
                                       ),
                                     )
                                   : const SizedBox(),
-                              Column(
-                                children: [
-                                  Image.asset(
-                                    "assets/images/Icon ionic-ios-heart.png",
-                                    width: 30,
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Image.asset(
-                                    "assets/images/chat.png",
-                                    width: 30,
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Image.asset(
-                                    "assets/images/send.png",
-                                    width: 30,
-                                  ),
-                                ],
+                              LikesCommentsWidgetVerticle(
+                                post: widget.post,
                               ),
                             ],
                           ),
@@ -226,47 +198,193 @@ class _SinglePostWidgetState extends State<SinglePostWidget> {
             const SizedBox(
               height: 10,
             ),
-            Stack(
-              clipBehavior: Clip.none,
-              children: const [
-                ListOfPersonsLikedTheUserPosts(
-                  img: "assets/images/1.png",
-                  clr: Color.fromARGB(255, 143, 200, 247),
-                ),
-                Positioned(
-                  left: 15,
-                  child: ListOfPersonsLikedTheUserPosts(
-                    img: "assets/images/2.png",
-                    clr: Color.fromARGB(255, 255, 246, 164),
-                  ),
-                ),
-                Positioned(
-                  left: 30,
-                  child: ListOfPersonsLikedTheUserPosts(
-                    img: "assets/images/3.png",
-                    clr: Color.fromARGB(255, 163, 236, 166),
-                  ),
-                ),
-                Positioned(
-                  left: 45,
-                  child: ListOfPersonsLikedTheUserPosts(
-                    img: "assets/images/3.png",
-                    clr: Color.fromARGB(255, 172, 212, 245),
-                  ),
-                ),
-                Positioned(
-                  left: 100,
-                  top: 7,
-                  child: Text(
-                    "Liked By Hayra and 1K other",
-                    style: TextStyle(color: Colors.red),
-                  ),
-                ),
-              ],
+            SizedBox(
+              height: 60,
+              child: LastLikesWidget(
+                post: widget.post,
+              ),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class LastLikesWidget extends StatelessWidget {
+  LastLikesWidget({
+    required this.post,
+    Key? key,
+  }) : super(key: key);
+  final UserPosts post;
+  double left = -15.0;
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      clipBehavior: Clip.none,
+      alignment: Alignment.center,
+      children: [
+        if (post.lastLikes.isNotEmpty)
+          ...post.lastLikes.map((e) {
+            left = left + 15;
+            return Positioned(
+              left: left,
+              child: ListOfPersonsLikedTheUserPosts(
+                img: e["profileUrl"],
+                clr: const Color.fromARGB(255, 143, 200, 247),
+              ),
+            );
+          }).toList(),
+        post.lastLikes.isNotEmpty
+            ? Positioned(
+                left: 100,
+                child: Text(
+                  post.lastLikes.length == 1
+                      ? "Liked By ${post.lastLikes.last["name"]}"
+                      : "Liked By ${post.lastLikes.last["name"]} and ${post.likesCount} other",
+                  style: const TextStyle(color: Colors.red),
+                ),
+              )
+            : const SizedBox(),
+      ],
+    );
+  }
+}
+
+class LikesCommentsWidgetVerticle extends StatefulWidget {
+  const LikesCommentsWidgetVerticle({
+    required this.post,
+    Key? key,
+  }) : super(key: key);
+
+  final UserPosts post;
+
+  @override
+  State<LikesCommentsWidgetVerticle> createState() =>
+      _LikesCommentsWidgetVerticleState();
+}
+
+class _LikesCommentsWidgetVerticleState
+    extends State<LikesCommentsWidgetVerticle> {
+  LikeModel? isLikedByMe;
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (mounted) {
+      final controller = context.read<PostController>();
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+        isLikedByMe =
+            await controller.isPostLikeByMe(postId: widget.post.postId);
+        setState(() {});
+      });
+    }
+
+    return Column(
+      children: [
+        Column(
+          children: [
+            IconButton(
+              splashRadius: 20,
+              onPressed: () async {
+                if (isLikedByMe != null) {
+                  await context.read<PostController>().unLike(
+                      postId: widget.post.postId, likeId: isLikedByMe!.likeId);
+                  setState(() {
+                    isLikedByMe = null;
+                  });
+                } else {
+                  final currentUser = context.read<AuthController>().appUser!;
+                  final LikeModel likeModel = LikeModel(
+                    likeId: const Uuid().v1(),
+                    uid: currentUser.uid,
+                    userName: currentUser.name,
+                    profileUrl: currentUser.profileUrl,
+                    dateAdded: Timestamp.now(),
+                    postId: widget.post.postId,
+                  );
+                  context
+                      .read<PostController>()
+                      .addLike(post: widget.post, likeModel: likeModel);
+                  setState(() {
+                    isLikedByMe = likeModel;
+                  });
+                }
+              },
+              icon: isLikedByMe == null
+                  ? const Icon(
+                      Icons.favorite_border,
+                      size: 30,
+                    )
+                  : const Icon(
+                      Icons.favorite,
+                      size: 30,
+                      color: Colors.red,
+                    ),
+            ),
+            Text(widget.post.likesCount.toString()),
+          ],
+        ),
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              splashRadius: 20,
+              onPressed: () {
+                showBottomSheet(
+                  context: context,
+                  builder: (context) => SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text("Close"),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        CommentsListView(
+                          post: widget.post,
+                          isBottomSheet: true,
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+              icon: const Icon(
+                Icons.comment,
+                size: 30,
+              ),
+            ),
+            Text(widget.post.commentsCount.toString()),
+          ],
+        ),
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              splashRadius: 20,
+              onPressed: () {},
+              icon: const Icon(
+                Icons.share,
+                size: 30,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

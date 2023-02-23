@@ -9,17 +9,20 @@ import 'package:social_media_app/common/controllers/post_controller.dart';
 import 'package:social_media_app/models/comment_model.dart';
 import 'package:social_media_app/models/user_post.dart';
 import 'package:social_media_app/screens/other_user_profile_screen.dart';
+import 'package:social_media_app/utils/media_query.dart';
 import 'package:social_media_app/widgets/indivisual_post_page_widgets.dart';
 import 'package:uuid/uuid.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class CommentsListView extends StatefulWidget {
   const CommentsListView({
+    this.isBottomSheet,
     required this.post,
     Key? key,
   }) : super(key: key);
 
   final UserPosts post;
+  final bool? isBottomSheet;
 
   @override
   State<CommentsListView> createState() => _CommentsListViewState();
@@ -35,10 +38,12 @@ class _CommentsListViewState extends State<CommentsListView> {
     return Form(
       key: _formKey,
       child: Column(
-        // mainAxisSize: MainAxisSize.min,
+        mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.25,
+            height: widget.isBottomSheet != null && widget.isBottomSheet == true
+                ? screenHeight(context) / 2
+                : screenHeight(context) * 0.25,
             child: StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection("posts")
@@ -61,6 +66,7 @@ class _CommentsListViewState extends State<CommentsListView> {
                           .map((e) => CommentModel.fromJson(e.data()))
                           .toList();
                       return ListView.builder(
+                          shrinkWrap: true,
                           itemCount: comments.length,
                           itemBuilder: ((context, index) {
                             final comment = comments[index];

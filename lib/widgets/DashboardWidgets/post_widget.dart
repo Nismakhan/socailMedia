@@ -194,6 +194,9 @@ class _PostWidgetState extends State<PostWidget> {
                                                 currentUser.profileUrl,
                                             accopation: currentUser.designation,
                                             dateAdded: Timestamp.now(),
+                                            likesCount: 0,
+                                            commentsCount: 0,
+                                            lastLikes: [],
                                           );
                                           await context
                                               .read<PostController>()

@@ -81,9 +81,10 @@ class PostController with ChangeNotifier {
     }
   }
 
-  Future<void> addLike({required LikeModel likeModel}) async {
+  Future<void> addLike(
+      {required UserPosts post, required LikeModel likeModel}) async {
     try {
-      await _repo.addLike(likeModel: likeModel);
+      await _repo.addLike(post: post, likeModel: likeModel);
     } catch (e) {
       log(e.toString());
       rethrow;

@@ -7,19 +7,30 @@ class ListOfPersonsLikedTheUserPosts extends StatelessWidget {
     required this.img,
   }) : super(key: key);
   final Color? clr;
-  final String img;
+  final String? img;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: clr,
-        shape: BoxShape.circle,
-      ),
-      child: Image.asset(
-        img,
-        width: 40,
-      ),
-    );
+    return img != null
+        ? Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+                color: clr,
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                    image: NetworkImage(
+                      img!,
+                    ),
+                    fit: BoxFit.cover)),
+          )
+        : Container(
+            decoration: BoxDecoration(
+              color: clr,
+              shape: BoxShape.circle,
+            ),
+            child: const SizedBox(
+              width: 40,
+            ));
   }
 }

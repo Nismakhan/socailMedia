@@ -11,6 +11,7 @@ import 'package:social_media_app/common/helper.dart';
 import 'package:social_media_app/models/like_model.dart';
 
 import 'package:social_media_app/models/user_post.dart';
+import 'package:social_media_app/utils/const.dart';
 import 'package:social_media_app/utils/media_query.dart';
 import 'package:uuid/uuid.dart';
 
@@ -98,7 +99,6 @@ class PostLikeCommentWidget extends StatefulWidget {
 class _PostLikeCommentWidgetState extends State<PostLikeCommentWidget> {
   int likeCount = 0;
   int commentCount = 0;
-
   LikeModel? isLikedByMe;
 
   @override
@@ -106,12 +106,22 @@ class _PostLikeCommentWidgetState extends State<PostLikeCommentWidget> {
     final controller = context.read<PostController>();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       isLikedByMe = await controller.isPostLikeByMe(postId: widget.post.postId);
-      likeCount = await controller.getLikesCount(postId: widget.post.postId);
-      commentCount =
-          await controller.getCommentCount(postId: widget.post.postId);
       setState(() {});
+      initCountStream();
     });
     super.initState();
+  }
+
+  void initCountStream() {
+    FirebaseFirestore.instance
+        .collection("posts")
+        .doc(widget.post.postId)
+        .snapshots()
+        .listen((event) {
+      likeCount = event.data()!["likesCount"];
+      commentCount = event.data()!["commentsCount"];
+      setState(() {});
+    });
   }
 
   @override
@@ -140,7 +150,9 @@ class _PostLikeCommentWidgetState extends State<PostLikeCommentWidget> {
                     dateAdded: Timestamp.now(),
                     postId: widget.post.postId,
                   );
-                  context.read<PostController>().addLike(likeModel: likeModel);
+                  context
+                      .read<PostController>()
+                      .addLike(post: widget.post, likeModel: likeModel);
                   setState(() {
                     isLikedByMe = likeModel;
                   });
