@@ -2,16 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media_app/auth/controllers/auth_controller.dart';
 import 'package:social_media_app/auth/model/user_model.dart';
+import 'package:social_media_app/common/controllers/post_controller.dart';
 import 'package:social_media_app/utils/image_dialgue.dart';
 
 import 'no_of_followers_posts_and_followings.dart';
 
-class UserProfileSection extends StatelessWidget {
+class UserProfileSection extends StatefulWidget {
   const UserProfileSection({
     required this.user,
     Key? key,
   }) : super(key: key);
   final UserModel user;
+
+  @override
+  State<UserProfileSection> createState() => _UserProfileSectionState();
+}
+
+class _UserProfileSectionState extends State<UserProfileSection> {
+  int postsCount = 0;
+  int followersCount = 0;
+  int followingCount = 0;
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      final controller = context.read<PostController>();
+      postsCount = await controller.getTotalPostCount(uid: widget.user.uid);
+      followersCount =
+          await controller.getTotalFollowerCount(uid: widget.user.uid);
+      followingCount =
+          await controller.getTotalFollowingCount(uid: widget.user.uid);
+      setState(() {});
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -20,7 +45,7 @@ class UserProfileSection extends StatelessWidget {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              user.uid == provider.appUser!.uid
+              widget.user.uid == provider.appUser!.uid
                   ? provider.isUploading
                       ? const Center(
                           child: CircularProgressIndicator(),
@@ -59,10 +84,11 @@ class UserProfileSection extends StatelessWidget {
                             ),
                           ],
                         )
-                  : user.profileUrl != null
+                  : widget.user.profileUrl != null
                       ? CircleAvatar(
                           radius: 50,
-                          backgroundImage: NetworkImage(user.profileUrl!),
+                          backgroundImage:
+                              NetworkImage(widget.user.profileUrl!),
                         )
                       : const CircleAvatar(
                           radius: 50,
@@ -76,7 +102,7 @@ class UserProfileSection extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    user.name,
+                    widget.user.name,
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -86,7 +112,7 @@ class UserProfileSection extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    user.designation,
+                    widget.user.designation,
                     style: const TextStyle(
                       fontSize: 17,
                       color: Color.fromARGB(255, 68, 68, 68),
@@ -95,7 +121,7 @@ class UserProfileSection extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  user.uid != provider.appUser!.uid
+                  widget.user.uid != provider.appUser!.uid
                       ? Row(
                           children: [
                             Container(
@@ -157,17 +183,17 @@ class UserProfileSection extends StatelessWidget {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: const [
+          children: [
             NoOfFollowersPostAndFollowings(
-              counting: "95",
+              counting: followingCount.toString(),
               text: "Following",
             ),
             NoOfFollowersPostAndFollowings(
-              counting: "2.3k",
+              counting: postsCount.toString(),
               text: "Posts",
             ),
             NoOfFollowersPostAndFollowings(
-              counting: "1.5M",
+              counting: followersCount.toString(),
               text: "Followers",
             ),
           ],

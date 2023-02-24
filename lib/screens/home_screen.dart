@@ -4,6 +4,7 @@ import 'package:social_media_app/app/controller/ui_controller.dart';
 import 'package:social_media_app/common/my_bottom_nav.dart';
 
 import 'package:social_media_app/screens/dashboard.dart';
+import 'package:social_media_app/screens/explore.dart';
 
 import 'package:social_media_app/screens/messages_screen.dart';
 import 'package:social_media_app/screens/notifications_screen.dart';
@@ -25,11 +26,11 @@ class HomeScreen extends StatelessWidget {
             // onPageChanged: (value) {
             //   provider.changeCurrentIndex(value);
             // },
-            children: const [
-              Dashboard(),
-              ProfileScreen(),
-              Notifications(),
-              ProfileScreen(),
+            children: [
+              const Dashboard(),
+              const ProfileScreen(),
+              const Notifications(),
+              Explore()
               // IndivisualPostPage(),
             ],
           );

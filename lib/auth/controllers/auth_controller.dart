@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -7,6 +8,7 @@ import 'package:social_media_app/app/router/router.dart';
 import 'package:social_media_app/auth/db/database.dart';
 import 'package:social_media_app/auth/model/user_model.dart';
 import 'package:social_media_app/common/helper.dart';
+import 'package:social_media_app/models/follow_model.dart';
 
 class AuthController extends ChangeNotifier {
   UserModel? appUser;
@@ -112,6 +114,39 @@ class AuthController extends ChangeNotifier {
   Future<UserModel> getUserById({required String uid}) async {
     try {
       return await _db.getUserById(uid);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> followUser({required FollowModel followModel}) async {
+    try {
+      final myFollowModel = FollowModel(
+          uid: appUser!.uid,
+          userName: appUser!.name,
+          dateAdded: Timestamp.now());
+      await _db.followUser(
+          myFollowModel: myFollowModel, followModel: followModel);
+      log("Followed");
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
+
+  Future<void> unFollow({required String uid}) async {
+    try {
+      await _db.unFollow(uid: uid);
+      log("UnFollowed");
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
+
+  Future<bool> isUserFollowed({required String uid}) async {
+    try {
+      return await _db.isUserFollowed(uid: uid);
     } catch (e) {
       rethrow;
     }

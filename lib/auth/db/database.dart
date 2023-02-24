@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:social_media_app/auth/model/user_model.dart';
+import 'package:social_media_app/models/follow_model.dart';
 
 class AuthDB {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -69,5 +70,65 @@ class AuthDB {
 
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
+  }
+
+  Future<void> followUser(
+      {required FollowModel myFollowModel,
+      required FollowModel followModel}) async {
+    try {
+      // put otherUserdata in my followed
+      // put my data in his followers
+      await _firestore
+          .collection("users")
+          .doc(_firebaseAuth.currentUser!.uid)
+          .collection("followed")
+          .doc(followModel.uid)
+          .set(followModel.toJson());
+
+      await _firestore
+          .collection("users")
+          .doc(followModel.uid)
+          .collection("followers")
+          .doc(_firebaseAuth.currentUser!.uid)
+          .set(followModel.toJson());
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> unFollow({required String uid}) async {
+    try {
+      // remove his doc from my followed list
+      await _firestore
+          .collection("users")
+          .doc(_firebaseAuth.currentUser!.uid)
+          .collection("followed")
+          .doc(uid)
+          .delete();
+
+      // remove my data from his follower list
+      await _firestore
+          .collection("users")
+          .doc(uid)
+          .collection("followers")
+          .doc(_firebaseAuth.currentUser!.uid)
+          .delete();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<bool> isUserFollowed({required String uid}) async {
+    try {
+      return (await _firestore
+              .collection("users")
+              .doc(_firebaseAuth.currentUser!.uid)
+              .collection("followed")
+              .doc(uid)
+              .get())
+          .exists;
+    } catch (e) {
+      rethrow;
+    }
   }
 }

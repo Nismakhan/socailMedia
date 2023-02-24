@@ -10,7 +10,6 @@ import 'package:social_media_app/models/like_model.dart';
 import 'package:social_media_app/models/user_post.dart';
 import 'package:social_media_app/screens/indivisual_post_page.dart';
 import 'package:social_media_app/screens/other_user_profile_screen.dart';
-import 'package:social_media_app/utils/media_query.dart';
 import 'package:social_media_app/widgets/individual_posts/comments_list_view.dart';
 import 'package:uuid/uuid.dart';
 import '../list_of_persons_liked_post.dart';

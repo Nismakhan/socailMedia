@@ -168,4 +168,45 @@ class PostRepo {
       rethrow;
     }
   }
+
+  Future<int> getTotalPostCount({required String uid}) async {
+    try {
+      return (await _firestore
+              .collection("posts")
+              .where("uid", isEqualTo: uid)
+              .count()
+              .get())
+          .count;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<int> getTotalFollowerCount({required String uid}) async {
+    try {
+      return (await _firestore
+              .collection("users")
+              .doc(uid)
+              .collection("followers")
+              .count()
+              .get())
+          .count;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<int> getTotalFollowingCount({required String uid}) async {
+    try {
+      return (await _firestore
+              .collection("users")
+              .doc(uid)
+              .collection("followed")
+              .count()
+              .get())
+          .count;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -33,11 +33,11 @@ class _MyBottomNavState extends State<MyBottomNav> {
             label: "",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.navigate_before),
+            icon: Icon(Icons.notifications),
             label: "",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
+            icon: Icon(Icons.people),
             label: "",
           ),
         ],
