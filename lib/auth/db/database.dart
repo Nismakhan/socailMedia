@@ -90,7 +90,7 @@ class AuthDB {
           .doc(followModel.uid)
           .collection("followers")
           .doc(_firebaseAuth.currentUser!.uid)
-          .set(followModel.toJson());
+          .set(myFollowModel.toJson());
     } catch (e) {
       rethrow;
     }
@@ -111,6 +111,28 @@ class AuthDB {
           .collection("users")
           .doc(uid)
           .collection("followers")
+          .doc(_firebaseAuth.currentUser!.uid)
+          .delete();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> removeFollower({required String uid}) async {
+    try {
+      // remove his doc from my follower list
+      await _firestore
+          .collection("users")
+          .doc(_firebaseAuth.currentUser!.uid)
+          .collection("followers")
+          .doc(uid)
+          .delete();
+
+      // remove my data from his followed list
+      await _firestore
+          .collection("users")
+          .doc(uid)
+          .collection("followed")
           .doc(_firebaseAuth.currentUser!.uid)
           .delete();
     } catch (e) {

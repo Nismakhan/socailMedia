@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:social_media_app/app/router/router.dart';
@@ -20,6 +21,7 @@ class AuthController extends ChangeNotifier {
       if (currentUser != null) {
         appUser = await _db.getUserById(currentUser.uid);
         log(appUser!.toJson().toString());
+        updateFcm();
         Navigator.pushReplacementNamed(context, AppRouter.homeScreen);
         return currentUser;
         // Get user data from database
@@ -40,6 +42,7 @@ class AuthController extends ChangeNotifier {
   }) async {
     try {
       appUser = await _db.signInWithEmailAndPassword(email, password);
+      updateFcm();
       Navigator.pushReplacementNamed(context, AppRouter.homeScreen);
     } on FirebaseAuthException catch (e) {
       log(e.code);
@@ -57,12 +60,18 @@ class AuthController extends ChangeNotifier {
       final User userFromCreds =
           await _db.signUpWithEmailAndPassword(user: user, password: password);
       appUser = user;
+      updateFcm();
       Navigator.pushReplacementNamed(context, AppRouter.homeScreen);
       log("Now current User: ${appUser?.toJson().toString()}");
       notifyListeners();
     } catch (e) {
       print("Error in controller: $e");
     }
+  }
+
+  void updateFcm() async {
+    appUser!.fcm = await FirebaseMessaging.instance.getToken() ?? "";
+    _db.updateUser(user: appUser!);
   }
 
   Future<void> signOut(BuildContext context) async {
@@ -124,6 +133,7 @@ class AuthController extends ChangeNotifier {
       final myFollowModel = FollowModel(
           uid: appUser!.uid,
           userName: appUser!.name,
+          profileUrl: appUser!.profileUrl,
           dateAdded: Timestamp.now());
       await _db.followUser(
           myFollowModel: myFollowModel, followModel: followModel);
@@ -138,6 +148,16 @@ class AuthController extends ChangeNotifier {
     try {
       await _db.unFollow(uid: uid);
       log("UnFollowed");
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
+
+  Future<void> removeFollower({required String uid}) async {
+    try {
+      await _db.removeFollower(uid: uid);
+      log("Follower Removed");
     } catch (e) {
       log(e.toString());
       rethrow;

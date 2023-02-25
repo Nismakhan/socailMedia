@@ -4,6 +4,8 @@ import 'package:social_media_app/auth/screens/login.dart';
 import 'package:social_media_app/auth/screens/sign_up.dart';
 import 'package:social_media_app/screens/chat_screen.dart';
 import 'package:social_media_app/screens/dashboard.dart';
+import 'package:social_media_app/screens/followers_screen.dart';
+import 'package:social_media_app/screens/following_screen.dart';
 import 'package:social_media_app/screens/home_screen.dart';
 import 'package:social_media_app/screens/indivisual_post_page.dart';
 import 'package:social_media_app/screens/messages_screen.dart';
@@ -29,6 +31,9 @@ class AppRouter {
   static const String homeScreen = "/homeScreen";
 
   static const String indivisualPostPage = "/indivisualPostPage";
+
+  static const String followersScreen = "/followersScreen";
+  static const String followingScreen = "/followingScreen";
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -88,6 +93,22 @@ class AppRouter {
       case homeScreen:
         return MaterialPageRoute(
           builder: ((context) => const HomeScreen()),
+          settings: settings,
+        );
+      case followersScreen:
+        final uid = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: ((context) => FollowersScreen(
+                uid: uid,
+              )),
+          settings: settings,
+        );
+      case followingScreen:
+        final uid = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: ((context) => FollowingScreen(
+                uid: uid,
+              )),
           settings: settings,
         );
       case indivisualPostPage:

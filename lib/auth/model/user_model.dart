@@ -7,6 +7,7 @@ class UserModel {
     required this.email,
     required this.designation,
     this.profileUrl,
+    required this.fcm,
   });
 
   String uid;
@@ -14,6 +15,7 @@ class UserModel {
   String email;
   String designation;
   String? profileUrl;
+  String fcm;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         uid: json["uid"],
@@ -21,6 +23,7 @@ class UserModel {
         email: json["email"],
         designation: json["designation"],
         profileUrl: json["profileUrl"],
+        fcm: json["fcm"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
@@ -29,5 +32,6 @@ class UserModel {
         "email": email,
         "designation": designation,
         "profileUrl": profileUrl,
+        "fcm": fcm,
       };
 }

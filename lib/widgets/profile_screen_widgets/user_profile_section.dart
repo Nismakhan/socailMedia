@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:social_media_app/app/router/router.dart';
 import 'package:social_media_app/auth/controllers/auth_controller.dart';
 import 'package:social_media_app/auth/model/user_model.dart';
 import 'package:social_media_app/common/controllers/post_controller.dart';
@@ -187,6 +188,10 @@ class _UserProfileSectionState extends State<UserProfileSection> {
             NoOfFollowersPostAndFollowings(
               counting: followingCount.toString(),
               text: "Following",
+              onpressed: () {
+                Navigator.pushNamed(context, AppRouter.followingScreen,
+                    arguments: widget.user.uid);
+              },
             ),
             NoOfFollowersPostAndFollowings(
               counting: postsCount.toString(),
@@ -195,6 +200,10 @@ class _UserProfileSectionState extends State<UserProfileSection> {
             NoOfFollowersPostAndFollowings(
               counting: followersCount.toString(),
               text: "Followers",
+              onpressed: () {
+                Navigator.pushNamed(context, AppRouter.followersScreen,
+                    arguments: widget.user.uid);
+              },
             ),
           ],
         )
