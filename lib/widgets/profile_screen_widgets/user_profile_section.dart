@@ -4,6 +4,7 @@ import 'package:social_media_app/app/router/router.dart';
 import 'package:social_media_app/auth/controllers/auth_controller.dart';
 import 'package:social_media_app/auth/model/user_model.dart';
 import 'package:social_media_app/common/controllers/post_controller.dart';
+import 'package:social_media_app/screens/message_screen.dart';
 import 'package:social_media_app/utils/image_dialgue.dart';
 
 import 'no_of_followers_posts_and_followings.dart';
@@ -154,20 +155,30 @@ class _UserProfileSectionState extends State<UserProfileSection> {
                             const SizedBox(
                               width: 10,
                             ),
-                            Container(
-                              width: 30,
-                              height: 30,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.blue,
-                              ),
-                              // height: 30,
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  AppRouter.messagesScreen,
+                                  arguments: MessageScreenArgs(
+                                      passedUser: widget.user),
+                                );
+                              },
+                              child: Container(
+                                width: 30,
+                                height: 30,
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.blue,
+                                ),
+                                // height: 30,
 
-                              child: const Center(
-                                child: Icon(
-                                  Icons.message,
-                                  size: 17,
-                                  color: Colors.white,
+                                child: const Center(
+                                  child: Icon(
+                                    Icons.message,
+                                    size: 17,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             )

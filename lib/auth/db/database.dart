@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:social_media_app/auth/model/user_model.dart';
+import 'package:social_media_app/models/chat_model.dart';
 import 'package:social_media_app/models/follow_model.dart';
 
 class AuthDB {
@@ -149,6 +150,24 @@ class AuthDB {
               .doc(uid)
               .get())
           .exists;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<ChatModel?> doesChatExists({required String uid}) async {
+    try {
+      final docs = (await _firestore
+              .collection("chats")
+              .where("userData.$uid.uid", isEqualTo: uid)
+              .where("userData.${_firebaseAuth.currentUser!.uid}.uid",
+                  isEqualTo: _firebaseAuth.currentUser!.uid)
+              .get())
+          .docs;
+      if (docs.isNotEmpty) {
+        return ChatModel.fromJson(docs.first.data());
+      }
+      return null;
     } catch (e) {
       rethrow;
     }

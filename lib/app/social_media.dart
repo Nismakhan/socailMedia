@@ -5,6 +5,7 @@ import 'package:social_media_app/app/controller/service_controller.dart';
 import 'package:social_media_app/app/controller/ui_controller.dart';
 import 'package:social_media_app/app/router/router.dart';
 import 'package:social_media_app/auth/controllers/auth_controller.dart';
+import 'package:social_media_app/common/controllers/chat_controller.dart';
 import 'package:social_media_app/common/controllers/post_controller.dart';
 
 class SocialMedia extends StatelessWidget {
@@ -25,6 +26,9 @@ class SocialMedia extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => PostController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ChatController(),
         ),
       ],
       child: GetMaterialApp(

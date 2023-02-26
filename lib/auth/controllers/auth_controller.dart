@@ -9,6 +9,7 @@ import 'package:social_media_app/app/router/router.dart';
 import 'package:social_media_app/auth/db/database.dart';
 import 'package:social_media_app/auth/model/user_model.dart';
 import 'package:social_media_app/common/helper.dart';
+import 'package:social_media_app/models/chat_model.dart';
 import 'package:social_media_app/models/follow_model.dart';
 
 class AuthController extends ChangeNotifier {
@@ -167,6 +168,14 @@ class AuthController extends ChangeNotifier {
   Future<bool> isUserFollowed({required String uid}) async {
     try {
       return await _db.isUserFollowed(uid: uid);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<ChatModel?> doesChatExists({required String uid}) async {
+    try {
+      return await _db.doesChatExists(uid: uid);
     } catch (e) {
       rethrow;
     }

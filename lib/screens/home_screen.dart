@@ -6,7 +6,7 @@ import 'package:social_media_app/common/my_bottom_nav.dart';
 import 'package:social_media_app/screens/dashboard.dart';
 import 'package:social_media_app/screens/explore.dart';
 
-import 'package:social_media_app/screens/messages_screen.dart';
+import 'package:social_media_app/screens/chat_screen.dart';
 import 'package:social_media_app/screens/notifications_screen.dart';
 import 'package:social_media_app/screens/profile_screen.dart';
 

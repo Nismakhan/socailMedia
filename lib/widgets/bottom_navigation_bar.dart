@@ -71,8 +71,8 @@
 // }
 import 'package:flutter/material.dart';
 import 'package:social_media_app/app/router/router.dart';
+import 'package:social_media_app/screens/message_screen.dart';
 import 'package:social_media_app/screens/chat_screen.dart';
-import 'package:social_media_app/screens/messages_screen.dart';
 import 'package:social_media_app/screens/profile_screen.dart';
 
 class BottomNav extends StatefulWidget {
@@ -119,8 +119,8 @@ class _BottomNavState extends State<BottomNav> {
         BottomNavigationBarItem(
           icon: GestureDetector(
               onTap: (() {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: ((context) => Chat())));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: ((context) => ChatScreen())));
               }),
               child: Icon(Icons.favorite)),
           // backgroundColor: Colors.indigo,

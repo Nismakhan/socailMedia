@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:social_media_app/app/splash.dart';
 import 'package:social_media_app/auth/screens/login.dart';
 import 'package:social_media_app/auth/screens/sign_up.dart';
-import 'package:social_media_app/screens/chat_screen.dart';
+import 'package:social_media_app/screens/message_screen.dart';
 import 'package:social_media_app/screens/dashboard.dart';
 import 'package:social_media_app/screens/followers_screen.dart';
 import 'package:social_media_app/screens/following_screen.dart';
 import 'package:social_media_app/screens/home_screen.dart';
 import 'package:social_media_app/screens/indivisual_post_page.dart';
-import 'package:social_media_app/screens/messages_screen.dart';
+import 'package:social_media_app/screens/chat_screen.dart';
 import 'package:social_media_app/screens/news_feed.dart';
 import 'package:social_media_app/screens/notifications_screen.dart';
 import 'package:social_media_app/screens/other_user_profile_screen.dart';
@@ -19,7 +19,7 @@ class AppRouter {
   static const String login = "/login";
   static const String signUp = "/sign_up";
   static const String dashboard = "/dashboard";
-  static const String chat = "/chat";
+  static const String chatScreen = "/chatScreen";
   static const String profileScreen = "/profile_screen";
   static const String otherUserprofileScreen = "/otherUserprofileScreen";
 
@@ -57,14 +57,17 @@ class AppRouter {
           builder: ((context) => const Dashboard()),
           settings: settings,
         );
-      case chat:
+      case chatScreen:
         return MaterialPageRoute(
-          builder: ((context) => const Chat()),
+          builder: ((context) => ChatScreen()),
           settings: settings,
         );
       case messagesScreen:
+        final args = settings.arguments as MessageScreenArgs;
         return MaterialPageRoute(
-          builder: ((context) => Messages()),
+          builder: ((context) => MessageScreen(
+                args: args,
+              )),
           settings: settings,
         );
       case profileScreen:

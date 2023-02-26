@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:social_media_app/app/router/router.dart';
 
 class IconsCardsForDashboardOnTop extends StatelessWidget {
   const IconsCardsForDashboardOnTop({Key? key, required this.stack})
@@ -47,33 +48,38 @@ class IconsOnTheTopOfDashboard extends StatelessWidget {
             )
           ],
         )),
-        IconsCardsForDashboardOnTop(
-          stack: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Image.asset(
-                "assets/images/message.png",
-                width: 20,
-                height: 40,
-              ),
-              Positioned(
-                top: -13,
-                left: 20,
-                child: Container(
-                  width: 30,
-                  height: 16,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6),
-                    color: Colors.red,
-                  ),
-                  child: const Center(
-                      child: Text(
-                    "34+",
-                    style: TextStyle(color: Colors.white),
-                  )),
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, AppRouter.chatScreen);
+          },
+          child: IconsCardsForDashboardOnTop(
+            stack: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Image.asset(
+                  "assets/images/message.png",
+                  width: 20,
+                  height: 40,
                 ),
-              ),
-            ],
+                Positioned(
+                  top: -13,
+                  left: 20,
+                  child: Container(
+                    width: 30,
+                    height: 16,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(6),
+                      color: Colors.red,
+                    ),
+                    child: const Center(
+                        child: Text(
+                      "34+",
+                      style: TextStyle(color: Colors.white),
+                    )),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ],
