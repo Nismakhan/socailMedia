@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media_app/app/router/router.dart';
 import 'package:social_media_app/auth/controllers/auth_controller.dart';
@@ -375,7 +376,10 @@ class _LikesCommentsWidgetVerticleState
           children: [
             IconButton(
               splashRadius: 20,
-              onPressed: () {},
+              onPressed: () async {
+                await FlutterShare.share(
+                    title: "wda", text: "wdwadwadad", linkUrl: "Awdad");
+              },
               icon: const Icon(
                 Icons.share,
                 size: 30,

@@ -1,11 +1,17 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 
 import 'package:provider/provider.dart';
 import 'package:social_media_app/app/controller/service_controller.dart';
+import 'package:social_media_app/app/router/router.dart';
+import 'package:social_media_app/common/helper.dart';
 import 'package:social_media_app/models/chat_model.dart';
+import 'package:social_media_app/screens/message_screen.dart';
 
 import '../utils/media_query.dart';
 
@@ -31,8 +37,8 @@ class ChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final chatQuery = FirebaseFirestore.instance
         .collection("chats")
-        .where("userData.${FirebaseAuth.instance.currentUser!.uid}.uid",
-            isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .where("userIds", arrayContains: FirebaseAuth.instance.currentUser!.uid)
+        .orderBy("dateModified", descending: true)
         .withConverter<ChatModel>(
           fromFirestore: (snapshot, options) =>
               ChatModel.fromJson(snapshot.data()!),
@@ -90,8 +96,42 @@ class ChatScreen extends StatelessWidget {
                       Expanded(
                         child: FirestoreListView<ChatModel>(
                           query: chatQuery,
+                          shrinkWrap: true,
                           itemBuilder: (context, doc) {
-                            return Text("daw");
+                            final chat = doc.data();
+                            final otherUser = chat.usersData.firstWhere(
+                                (element) =>
+                                    element.uid !=
+                                    FirebaseAuth.instance.currentUser!.uid);
+
+                            return Material(
+                              color: Colors.transparent,
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, AppRouter.messagesScreen,
+                                      arguments:
+                                          MessageScreenArgs(chatModel: chat));
+                                },
+                                child: ListTile(
+                                  leading: otherUser.profilePic != null
+                                      ? CircleAvatar(
+                                          radius: 40,
+                                          backgroundImage: NetworkImage(
+                                              otherUser.profilePic!),
+                                        )
+                                      : CircleAvatar(
+                                          radius: 40,
+                                        ),
+                                  title: Text(otherUser.name),
+                                  subtitle: Text(
+                                    chat.lastMessage.text,
+                                  ),
+                                  trailing: Text(Helper.getFormattedTime(
+                                      chat.lastMessage.dateAdded.toDate())),
+                                ),
+                              ),
+                            );
                           },
                         ),
                       ),

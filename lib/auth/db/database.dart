@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:social_media_app/auth/model/user_model.dart';
@@ -159,16 +161,17 @@ class AuthDB {
     try {
       final docs = (await _firestore
               .collection("chats")
-              .where("userData.$uid.uid", isEqualTo: uid)
-              .where("userData.${_firebaseAuth.currentUser!.uid}.uid",
-                  isEqualTo: _firebaseAuth.currentUser!.uid)
+              .where("userIds", arrayContains: uid)
               .get())
           .docs;
       if (docs.isNotEmpty) {
         return ChatModel.fromJson(docs.first.data());
+      } else {
+        log("null");
       }
       return null;
     } catch (e) {
+      log(e.toString());
       rethrow;
     }
   }

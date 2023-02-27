@@ -2,12 +2,14 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media_app/app/controller/service_controller.dart';
 import 'package:social_media_app/auth/controllers/auth_controller.dart';
 import 'package:social_media_app/auth/model/user_model.dart';
 import 'package:social_media_app/common/controllers/chat_controller.dart';
+import 'package:social_media_app/common/helper.dart';
 import 'package:social_media_app/models/chat_model.dart';
 import 'package:social_media_app/models/message_model.dart';
 import 'package:social_media_app/utils/const.dart';
@@ -29,6 +31,7 @@ class _MessageScreenState extends State<MessageScreen> {
 
   final _textCon = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final _scrollController = ScrollController();
   @override
   void initState() {
     final firebaseAuth = FirebaseAuth.instance;
@@ -52,11 +55,22 @@ class _MessageScreenState extends State<MessageScreen> {
         }
         state = LoadingState.loaded;
         setState(() {});
+        Future.delayed(Duration(milliseconds: 500), () {
+          scrollToEnd();
+        });
       } catch (e) {
         state = LoadingState.error;
       }
     });
     super.initState();
+  }
+
+  void scrollToEnd() {
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.fastOutSlowIn,
+    );
   }
 
   void setQuery() {
@@ -65,6 +79,7 @@ class _MessageScreenState extends State<MessageScreen> {
         .collection("chats")
         .doc(widget.args.chatModel!.chatId)
         .collection("messages")
+        .orderBy("dateAdded", descending: false)
         .withConverter(
             fromFirestore: (snap, option) =>
                 MessageModel.fromJson(snap.data()!),
@@ -91,7 +106,16 @@ class _MessageScreenState extends State<MessageScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Expanded(child: Text("data")),
+                      Expanded(
+                          child: FirestoreListView<MessageModel>(
+                        controller: _scrollController,
+                        query: query,
+                        itemBuilder: (context, doc) {
+                          final message = doc.data();
+                          // message.dateAdded
+                          return MessageBubble(message: message);
+                        },
+                      )),
 
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
@@ -132,6 +156,7 @@ class _MessageScreenState extends State<MessageScreen> {
                               child: IconButton(
                                 onPressed: () async {
                                   if (_formKey.currentState!.validate()) {
+                                    log(_textCon.text);
                                     final _firebaseAuth = FirebaseAuth.instance;
                                     if (widget.args.chatModel != null) {
                                       final message = MessageModel(
@@ -175,6 +200,10 @@ class _MessageScreenState extends State<MessageScreen> {
                                                   .args.passedUser!.profileUrl,
                                               uid: widget.args.passedUser!.uid),
                                         ],
+                                        userIds: [
+                                          currentUser.uid,
+                                          widget.args.passedUser!.uid
+                                        ],
                                         dateAdded: Timestamp.now(),
                                         dateModified: Timestamp.now(),
                                       );
@@ -187,6 +216,8 @@ class _MessageScreenState extends State<MessageScreen> {
 
                                       widget.args.chatModel = chatModel;
                                     }
+                                    _textCon.clear();
+                                    scrollToEnd();
                                   }
                                 },
                                 icon: const Icon(Icons.send),
@@ -201,6 +232,63 @@ class _MessageScreenState extends State<MessageScreen> {
                 ),
               ),
             ),
+    );
+  }
+}
+
+class MessageBubble extends StatelessWidget {
+  const MessageBubble({
+    Key? key,
+    required this.message,
+  }) : super(key: key);
+
+  final MessageModel message;
+
+  @override
+  Widget build(BuildContext context) {
+    final isFromMe = (message.uid == FirebaseAuth.instance.currentUser!.uid);
+    return Row(
+      mainAxisAlignment:
+          isFromMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+      children: [
+        ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: screenWidth(context) * 0.7),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5),
+            child: Card(
+                color: isFromMe ? Colors.white : Colors.blue,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        message.text,
+                        style: TextStyle(
+                            color: isFromMe ? Colors.black : Colors.white),
+                      ),
+                      Divider(
+                        thickness: 1,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            Helper.getFormattedTime(
+                              message.dateAdded.toDate(),
+                            ),
+                            style: TextStyle(
+                                color: isFromMe ? Colors.black : Colors.white),
+                            textAlign: TextAlign.right,
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                )),
+          ),
+        ),
+      ],
     );
   }
 }

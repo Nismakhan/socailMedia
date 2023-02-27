@@ -6,12 +6,14 @@ class ChatModel {
       {required this.chatId,
       required this.lastMessage,
       required this.usersData,
+      required this.userIds,
       required this.dateAdded,
       required this.dateModified});
 
   String chatId;
   MessageModel lastMessage;
   List<UsersData> usersData;
+  List<String> userIds;
   Timestamp dateAdded;
   Timestamp dateModified;
 
@@ -22,6 +24,7 @@ class ChatModel {
             .values
             .map((e) => UsersData.fromJson(e))
             .toList(),
+        userIds: (json["userIds"] as List).map((e) => e as String).toList(),
         dateAdded: json["dateAdded"],
         dateModified: json["dateModified"],
       );
@@ -33,6 +36,7 @@ class ChatModel {
           usersData.first.uid: usersData.first.toJson(),
           usersData[1].uid: usersData[1].toJson()
         },
+        "userIds": userIds,
         "dateAdded": dateAdded,
         "dateModified": dateModified
       };
