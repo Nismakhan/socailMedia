@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:social_media_app/models/comment_model.dart';
 import 'package:social_media_app/models/like_model.dart';
+import 'package:social_media_app/models/story_model.dart';
 import 'package:social_media_app/models/user_post.dart';
 
 class PostRepo {
@@ -205,6 +206,17 @@ class PostRepo {
               .count()
               .get())
           .count;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> addStory({required StoryModel story}) async {
+    try {
+      await _firestore
+          .collection("stories")
+          .doc(story.storyId)
+          .set(story.toJson());
     } catch (e) {
       rethrow;
     }

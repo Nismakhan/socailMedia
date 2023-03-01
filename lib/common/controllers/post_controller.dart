@@ -7,6 +7,7 @@ import 'package:social_media_app/common/helper.dart';
 import 'package:social_media_app/common/repo/post_repo.dart';
 import 'package:social_media_app/models/comment_model.dart';
 import 'package:social_media_app/models/like_model.dart';
+import 'package:social_media_app/models/story_model.dart';
 import 'package:social_media_app/models/user_post.dart';
 import 'package:social_media_app/utils/const.dart';
 
@@ -144,6 +145,19 @@ class PostController with ChangeNotifier {
     try {
       return await _repo.getTotalFollowingCount(uid: uid);
     } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> addStory({required StoryModel story, XFile? file}) async {
+    try {
+      if (file != null) {
+        story.asset = await Helper.uploadImage(
+            id: "", file: file, ref: "stories/${story.storyId}");
+      }
+      await _repo.addStory(story: story);
+    } catch (e) {
+      log(e.toString());
       rethrow;
     }
   }

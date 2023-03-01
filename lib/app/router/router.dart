@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:social_media_app/app/splash.dart';
 import 'package:social_media_app/auth/screens/login.dart';
 import 'package:social_media_app/auth/screens/sign_up.dart';
+import 'package:social_media_app/screens/add_story_screen.dart';
 import 'package:social_media_app/screens/message_screen.dart';
 import 'package:social_media_app/screens/dashboard.dart';
 import 'package:social_media_app/screens/followers_screen.dart';
@@ -34,6 +35,8 @@ class AppRouter {
 
   static const String followersScreen = "/followersScreen";
   static const String followingScreen = "/followingScreen";
+
+  static const String addStoryScreen = "/addStoryScreen";
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -112,6 +115,11 @@ class AppRouter {
           builder: ((context) => FollowingScreen(
                 uid: uid,
               )),
+          settings: settings,
+        );
+      case addStoryScreen:
+        return MaterialPageRoute(
+          builder: ((context) => AddStoryScreen()),
           settings: settings,
         );
       case indivisualPostPage:
