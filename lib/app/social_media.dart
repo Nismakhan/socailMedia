@@ -7,6 +7,7 @@ import 'package:social_media_app/app/router/router.dart';
 import 'package:social_media_app/auth/controllers/auth_controller.dart';
 import 'package:social_media_app/common/controllers/chat_controller.dart';
 import 'package:social_media_app/common/controllers/post_controller.dart';
+import 'package:social_media_app/common/controllers/story_controller.dart';
 
 class SocialMedia extends StatelessWidget {
   const SocialMedia({super.key});
@@ -29,6 +30,9 @@ class SocialMedia extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => ChatController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => StoryController(),
         ),
       ],
       child: GetMaterialApp(

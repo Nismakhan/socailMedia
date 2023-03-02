@@ -14,6 +14,7 @@ import 'package:social_media_app/screens/news_feed.dart';
 import 'package:social_media_app/screens/notifications_screen.dart';
 import 'package:social_media_app/screens/other_user_profile_screen.dart';
 import 'package:social_media_app/screens/profile_screen.dart';
+import 'package:social_media_app/screens/story_screen.dart';
 
 class AppRouter {
   static const String splash = "/";
@@ -37,6 +38,8 @@ class AppRouter {
   static const String followingScreen = "/followingScreen";
 
   static const String addStoryScreen = "/addStoryScreen";
+
+  static const String storyScreen = "/storyScreen";
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -127,6 +130,14 @@ class AppRouter {
         return MaterialPageRoute(
           builder: ((context) => IndivisualPostPage(
                 post: args.post,
+              )),
+          settings: settings,
+        );
+      case storyScreen:
+        final args = settings.arguments as StoryScreenArgs;
+        return MaterialPageRoute(
+          builder: ((context) => StoryScreen(
+                stories: args.stories,
               )),
           settings: settings,
         );

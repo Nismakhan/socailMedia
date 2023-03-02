@@ -51,3 +51,13 @@ enum StoryType {
   picture,
   video,
 }
+
+void fun() {
+  List<StoryModel> stories = [];
+  final uids = stories.map((e) => e.uid).toSet();
+  final map = {};
+  uids.forEach((id) {
+    map[id] = stories.where((element) => element.uid == id);
+  });
+  // map.entries.map((e) => null)
+}
