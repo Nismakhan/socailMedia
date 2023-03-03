@@ -210,15 +210,4 @@ class PostRepo {
       rethrow;
     }
   }
-
-  Future<void> addStory({required StoryModel story}) async {
-    try {
-      await _firestore
-          .collection("stories")
-          .doc(story.storyId)
-          .set(story.toJson());
-    } catch (e) {
-      rethrow;
-    }
-  }
 }

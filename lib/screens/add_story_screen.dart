@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media_app/auth/controllers/auth_controller.dart';
 import 'package:social_media_app/common/controllers/post_controller.dart';
+import 'package:social_media_app/common/controllers/story_controller.dart';
 import 'package:social_media_app/common/helper.dart';
 import 'package:social_media_app/models/story_model.dart';
 import 'package:social_media_app/utils/image_dialgue.dart';
@@ -147,8 +148,9 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
                         storyType: type,
                       );
                       await context
-                          .read<PostController>()
+                          .read<StoryController>()
                           .addStory(story: storyModel, file: selectedFile);
+                      Navigator.pop(context);
                     }
                   },
                   child: Text("Add Status")),

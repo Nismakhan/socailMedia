@@ -148,17 +148,4 @@ class PostController with ChangeNotifier {
       rethrow;
     }
   }
-
-  Future<void> addStory({required StoryModel story, XFile? file}) async {
-    try {
-      if (file != null) {
-        story.asset = await Helper.uploadImage(
-            id: "", file: file, ref: "stories/${story.storyId}");
-      }
-      await _repo.addStory(story: story);
-    } catch (e) {
-      log(e.toString());
-      rethrow;
-    }
-  }
 }
