@@ -89,19 +89,19 @@ class _SplashState extends State<Splash> {
       AndroidNotification? android = message.notification?.android;
       log(notification!.title.toString());
       log(notification!.body.toString());
-      NotificationBuilder.foregroundNotification(
-          notification.title!, notification.body!);
-      // flutterLocalNotificationsPlugin.show(
-      //     notification.hashCode,
-      //     notification?.title,
-      //     notification?.body,
-      //     NotificationDetails(
-      //       android: AndroidNotificationDetails(
-      //         channel.id,
-      //         channel.name,
-      //         icon: android?.smallIcon,
-      //       ),
-      //     ));
+      // NotificationBuilder.foregroundNotification(
+      //     notification.title!, notification.body!);
+      flutterLocalNotificationsPlugin.show(
+          notification.hashCode,
+          notification?.title,
+          notification?.body,
+          NotificationDetails(
+            android: AndroidNotificationDetails(
+              channel.id,
+              channel.name,
+              icon: android?.smallIcon,
+            ),
+          ));
     });
   }
 
@@ -109,17 +109,17 @@ class _SplashState extends State<Splash> {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
-      // flutterLocalNotificationsPlugin.show(
-      //     notification.hashCode,
-      //     notification?.title,
-      //     notification?.body,
-      //     NotificationDetails(
-      //       android: AndroidNotificationDetails(
-      //         channel.id,
-      //         channel.name,
-      //         icon: android?.smallIcon,
-      //       ),
-      //     ));
+      flutterLocalNotificationsPlugin.show(
+          notification.hashCode,
+          notification?.title,
+          notification?.body,
+          NotificationDetails(
+            android: AndroidNotificationDetails(
+              channel.id,
+              channel.name,
+              icon: android?.smallIcon,
+            ),
+          ));
     });
   }
 }

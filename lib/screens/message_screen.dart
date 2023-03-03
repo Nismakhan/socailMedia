@@ -27,7 +27,8 @@ class MessageScreen extends StatefulWidget {
 
 class _MessageScreenState extends State<MessageScreen> {
   LoadingState state = LoadingState.idle;
-  late Query<MessageModel> query;
+
+  Query<MessageModel>? query;
 
   final _textCon = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -106,17 +107,18 @@ class _MessageScreenState extends State<MessageScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Expanded(
-                          child: FirestoreListView<MessageModel>(
-                        controller: _scrollController,
-                        query: query,
-                        itemBuilder: (context, doc) {
-                          final message = doc.data();
-                          // message.dateAdded
-                          return MessageBubble(message: message);
-                        },
-                      )),
-
+                      query != null
+                          ? Expanded(
+                              child: FirestoreListView<MessageModel>(
+                              controller: _scrollController,
+                              query: query!,
+                              itemBuilder: (context, doc) {
+                                final message = doc.data();
+                                // message.dateAdded
+                                return MessageBubble(message: message);
+                              },
+                            ))
+                          : SizedBox(),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: Row(
@@ -213,7 +215,8 @@ class _MessageScreenState extends State<MessageScreen> {
                                           .createChat(
                                               message: messageModel,
                                               chatModel: chatModel);
-
+                                      setQuery();
+                                      setState(() {});
                                       widget.args.chatModel = chatModel;
                                     }
                                     _textCon.clear();
