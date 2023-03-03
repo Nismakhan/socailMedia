@@ -8,6 +8,7 @@ import 'package:social_media_app/auth/controllers/auth_controller.dart';
 import 'package:social_media_app/common/controllers/chat_controller.dart';
 import 'package:social_media_app/common/controllers/post_controller.dart';
 import 'package:social_media_app/common/controllers/story_controller.dart';
+import 'package:social_media_app/screens/animations/screens/screen_1.dart';
 
 class SocialMedia extends StatelessWidget {
   const SocialMedia({super.key});
@@ -40,6 +41,7 @@ class SocialMedia extends StatelessWidget {
         onGenerateRoute: (settings) {
           return AppRouter.onGenerateRoute(settings);
         },
+        home: Screen1(),
         builder: (context, child) {
           return GestureDetector(
             behavior: HitTestBehavior.translucent,
