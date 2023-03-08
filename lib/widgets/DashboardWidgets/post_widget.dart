@@ -196,6 +196,7 @@ class _PostWidgetState extends State<PostWidget> {
                                             dateAdded: Timestamp.now(),
                                             likesCount: 0,
                                             commentsCount: 0,
+                                            shareCount: 0,
                                             lastLikes: [],
                                           );
                                           await context

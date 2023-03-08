@@ -4,10 +4,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:social_media_app/auth/model/user_model.dart';
 import 'package:social_media_app/models/comment_model.dart';
 import 'package:social_media_app/models/like_model.dart';
+import 'package:social_media_app/models/shared_post_model.dart';
 import 'package:social_media_app/models/story_model.dart';
 import 'package:social_media_app/models/user_post.dart';
+import 'package:uuid/uuid.dart';
 
 class PostRepo {
   final _firestore = FirebaseFirestore.instance;
@@ -206,6 +209,32 @@ class PostRepo {
               .count()
               .get())
           .count;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> sharePost({required SharedPostModel post}) async {
+    try {
+      final doesExits = (await _firestore
+              .collection("sharedPosts")
+              .where("postId", isEqualTo: post.postId)
+              .where("uid", isEqualTo: post.uid)
+              .get())
+          .docs
+          .isNotEmpty;
+      if (!doesExits) {
+        await _firestore
+            .collection("sharedPosts")
+            .doc(post.docId)
+            .set(post.toJson());
+
+        await _firestore.collection("posts").doc(post.postId).update({
+          "shareCount": FieldValue.increment(1),
+        });
+      } else {
+        throw "Post Already Exists";
+      }
     } catch (e) {
       rethrow;
     }

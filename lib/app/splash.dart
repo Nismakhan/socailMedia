@@ -7,6 +7,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media_app/auth/controllers/auth_controller.dart';
 import 'package:social_media_app/common/controllers/post_controller.dart';
+import 'package:social_media_app/deep_link/deep_link_service.dart';
 import 'package:social_media_app/notification_builder.dart';
 
 class Splash extends StatefulWidget {
@@ -19,6 +20,7 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   @override
   void initState() {
+    DynamicLinkService.handleDynamicLinks();
     loadData();
     super.initState();
   }
@@ -87,21 +89,22 @@ class _SplashState extends State<Splash> {
 
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
+
       log(notification!.title.toString());
       log(notification!.body.toString());
-      // NotificationBuilder.foregroundNotification(
-      //     notification.title!, notification.body!);
-      flutterLocalNotificationsPlugin.show(
-          notification.hashCode,
-          notification?.title,
-          notification?.body,
-          NotificationDetails(
-            android: AndroidNotificationDetails(
-              channel.id,
-              channel.name,
-              icon: android?.smallIcon,
-            ),
-          ));
+      NotificationBuilder.foregroundNotification(
+          notification.title!, notification.body!);
+      // flutterLocalNotificationsPlugin.show(
+      //     notification.hashCode,
+      //     notification?.title,
+      //     notification?.body,
+      //     NotificationDetails(
+      //       android: AndroidNotificationDetails(
+      //         channel.id,
+      //         channel.name,
+      //         icon: android?.smallIcon,
+      //       ),
+      //     ));
     });
   }
 

@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:social_media_app/app/router/router.dart';
 import 'package:social_media_app/auth/controllers/auth_controller.dart';
 import 'package:social_media_app/common/controllers/post_controller.dart';
+import 'package:social_media_app/deep_link/deep_link_service.dart';
 import 'package:social_media_app/models/like_model.dart';
 import 'package:social_media_app/models/user_post.dart';
 import 'package:social_media_app/screens/indivisual_post_page.dart';
@@ -377,14 +378,43 @@ class _LikesCommentsWidgetVerticleState
             IconButton(
               splashRadius: 20,
               onPressed: () async {
-                await FlutterShare.share(
-                    title: "wda", text: "wdwadwadad", linkUrl: "Awdad");
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: Text("Share Post"),
+                    content: Text("Are you sure you want to share this post?"),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text("Cancel")),
+                      ElevatedButton(
+                        onPressed: () async {
+                          try {
+                            context.read<PostController>().sharePost(
+                                post: widget.post,
+                                currentUser:
+                                    context.read<AuthController>().appUser!);
+                            Navigator.pop(context);
+                          } catch (e) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(e.toString())));
+                            rethrow;
+                          }
+                        },
+                        child: Text("Share"),
+                      ),
+                    ],
+                  ),
+                );
               },
               icon: const Icon(
                 Icons.share,
                 size: 30,
               ),
             ),
+            Text(widget.post.shareCount.toString()),
           ],
         ),
       ],

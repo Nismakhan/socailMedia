@@ -1,15 +1,19 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:social_media_app/auth/model/user_model.dart';
 import 'package:social_media_app/common/helper.dart';
 import 'package:social_media_app/common/repo/post_repo.dart';
 import 'package:social_media_app/models/comment_model.dart';
 import 'package:social_media_app/models/like_model.dart';
+import 'package:social_media_app/models/shared_post_model.dart';
 import 'package:social_media_app/models/story_model.dart';
 import 'package:social_media_app/models/user_post.dart';
 import 'package:social_media_app/utils/const.dart';
+import 'package:uuid/uuid.dart';
 
 class PostController with ChangeNotifier {
   final _repo = PostRepo();
@@ -144,6 +148,22 @@ class PostController with ChangeNotifier {
   Future<int> getTotalFollowingCount({required String uid}) async {
     try {
       return await _repo.getTotalFollowingCount(uid: uid);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> sharePost(
+      {required UserPosts post, required UserModel currentUser}) async {
+    try {
+      final sharedPost = SharedPostModel(
+          docId: const Uuid().v1(),
+          postId: post.postId,
+          uid: currentUser.uid,
+          name: currentUser.name,
+          profilePic: currentUser.profileUrl,
+          dateSharedAt: Timestamp.now());
+      await _repo.sharePost(post: sharedPost);
     } catch (e) {
       rethrow;
     }

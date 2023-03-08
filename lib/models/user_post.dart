@@ -10,6 +10,7 @@ class UserPosts {
     this.about,
     required this.likesCount,
     required this.commentsCount,
+    required this.shareCount,
     required this.accopation,
     required this.lastLikes,
     required this.dateAdded,
@@ -23,6 +24,7 @@ class UserPosts {
   String? about;
   int likesCount;
   int commentsCount;
+  int shareCount;
   String accopation;
   Timestamp dateAdded;
   List<Map<String, dynamic>> lastLikes;
@@ -37,6 +39,7 @@ class UserPosts {
         accopation: json["accopation"],
         dateAdded: json["dateAdded"],
         likesCount: (json["likesCount"] == null) ? 0 : json["likesCount"],
+        shareCount: (json["shareCount"] == null) ? 0 : json["shareCount"],
         commentsCount:
             (json["commentsCount"] == null) ? 0 : json["commentsCount"],
         lastLikes: (json["lastLikes"] == null)
@@ -56,6 +59,7 @@ class UserPosts {
         "accopation": accopation,
         "dateAdded": dateAdded,
         "likesCount": likesCount,
+        "shareCount": shareCount,
         "commentsCount": commentsCount,
         "lastLikes": lastLikes
       };

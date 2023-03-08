@@ -1,10 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media_app/auth/controllers/auth_controller.dart';
 import 'package:social_media_app/common/controllers/post_controller.dart';
 import 'package:social_media_app/utils/const.dart';
 import 'package:social_media_app/utils/media_query.dart';
 import 'package:social_media_app/widgets/more_vert_outlined.dart';
+import 'package:social_media_app/widgets/profile_screen_widgets/share_posts_grid.dart';
 
 import '../widgets/profile_screen_widgets/posts_grid.dart';
 import '../widgets/profile_screen_widgets/photos_vedios_and_tagged_section.dart';
@@ -17,12 +20,15 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ProfileScreenState extends State<ProfileScreen>
+    with TickerProviderStateMixin {
   @override
   void initState() {
+    tabContoller = TabController(length: 2, vsync: this);
     super.initState();
   }
 
+  late TabController tabContoller;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,25 +93,56 @@ class _ProfileScreenState extends State<ProfileScreen> {
             const Divider(
               height: 2,
             ),
+            TabBar(
+              labelColor: Colors.black,
+              controller: tabContoller,
+              indicatorSize: TabBarIndicatorSize.label,
+              tabs: [
+                Tab(
+                  text: "My Post",
+                ),
+                Tab(
+                  text: "Shared Posts",
+                )
+              ],
+            ),
             Expanded(
-              child: Consumer<PostController>(builder: (context, provider, _) {
-                switch (provider.state) {
-                  case LoadingState.idle:
-                    return const SizedBox();
-                  case LoadingState.processing:
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  case LoadingState.error:
-                    return const Center(
-                      child: Text("Error"),
-                    );
-                  case LoadingState.loaded:
-                    return PostsGrid(
-                      posts: provider.currentUserPosts,
-                    );
-                }
-              }),
+              child: TabBarView(
+                controller: tabContoller,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Expanded(
+                      child: Consumer<PostController>(
+                          builder: (context, provider, _) {
+                        switch (provider.state) {
+                          case LoadingState.idle:
+                            return const SizedBox();
+                          case LoadingState.processing:
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          case LoadingState.error:
+                            return const Center(
+                              child: Text("Error"),
+                            );
+                          case LoadingState.loaded:
+                            return PostsGrid(
+                              posts: provider.currentUserPosts,
+                            );
+                        }
+                      }),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Expanded(
+                        child: SharedPostGrid(
+                      uid: FirebaseAuth.instance.currentUser!.uid,
+                    )),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

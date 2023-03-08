@@ -41,7 +41,7 @@ class SocialMedia extends StatelessWidget {
         onGenerateRoute: (settings) {
           return AppRouter.onGenerateRoute(settings);
         },
-        home: Screen1(),
+        // home: Screen1(),
         builder: (context, child) {
           return GestureDetector(
             behavior: HitTestBehavior.translucent,
